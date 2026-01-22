@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Korean Living Support | Immigration & Relocation Services</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -14,6 +16,7 @@
       color: #333;
       line-height: 1.6;
     }
+
     header {
       background-color: #007acc;
       color: white;
@@ -28,25 +31,59 @@
       margin: 10px 0 0;
       font-size: 1.2em;
     }
+
     section {
       max-width: 800px;
       margin: 40px auto;
       padding: 0 20px;
     }
+
     h2 {
       border-bottom: 2px solid #007acc;
       padding-bottom: 5px;
     }
+
+    /* Card-style list (for Team + Services main items) */
     ul {
       list-style: none;
       padding-left: 0;
+      margin: 0;
     }
+
     li {
       background: #fafafa;
       margin: 10px 0;
       padding: 15px;
       border-left: 5px solid #007acc;
     }
+
+    /* Justified paragraph utility */
+    .justify {
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto;
+    }
+
+    /* Tighten paragraph spacing inside cards */
+    .service-desc {
+      margin: 8px 0 10px;
+    }
+
+    /* Nested bullet list inside a card */
+    .sub-bullets {
+      list-style: disc;
+      padding-left: 22px;
+      margin: 10px 0 0;
+    }
+
+    /* Make nested bullets NOT look like cards */
+    .sub-bullets li {
+      background: transparent;
+      border-left: 0;
+      padding: 0;
+      margin: 8px 0;
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -54,6 +91,7 @@
       background: #f4f4f4;
       margin-top: 40px;
     }
+
     a {
       color: #007acc;
       text-decoration: none;
@@ -63,6 +101,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <header>
@@ -72,44 +111,81 @@
 
   <section>
     <h2>About Us</h2>
-    <p>We offer trusted and personalized support to Korean expatriates and companies in Chennai. Our services are designed to help with FRRO registration, Visa extension, Local housing, PAN/Aadhaar card support, Korean translation,  Cultural consulting for short-term projects, audits, and corporate events, Expert Income Tax Return (ITR) filing  and more — all delivered with cultural understanding,  and professionalism.</p>
+    <p class="justify">
+      We offer trusted and personalized support to Korean expatriates and companies in Chennai. Our services are designed to help with FRRO registration,
+      Visa extension, Local housing, PAN/Aadhaar card support, Korean translation, Cultural consulting for short-term projects, audits, and corporate events,
+      Expert Income Tax Return (ITR) filing and more — all delivered with cultural understanding and professionalism.
+    </p>
   </section>
 
   <section>
     <h2>Meet Our Team</h2>
     <ul>
       <li><strong>CEO – Raj Kumar:</strong> Strategic lead and liaison with Korean corporate clients.</li>
-      <li><strong>Kalaivani – HR & Immigration Support Consultant:</strong> Hands-on support for FRRO, PAN, Aadhaar, translation, and coordination with HR teams.</li>
-      <li><strong>Y Thavanesh – Operation & System Administrator :</strong> Hands-on support for all IT / Cybersecurity services. </li>
+      <li><strong>Kalaivani – HR &amp; Immigration Support Consultant:</strong> Hands-on support for FRRO, PAN, Aadhaar, translation, and coordination with HR teams.</li>
+      <li><strong>Y Thavanesh – Operation &amp; System Administrator:</strong> Hands-on support for all IT / Cybersecurity services.</li>
     </ul>
   </section>
 
   <section>
     <h2>Our Services</h2>
     <ul>
-      <li><strong>FRRO & Visa Services:</strong> Registration, visa extension, RP renewal, exit permit.</li>
-            <li><strong>Fresh Passport & Tatkaal Services:</strong> Fresh Registration for individuals who need a passport on an urgent basis and are eligible for the Tatkaal service..</li>
+      <li><strong>FRRO &amp; Visa Services:</strong> Registration, visa extension, RP renewal, exit permit.</li>
+
+      <li><strong>Fresh Passport &amp; Tatkaal Services:</strong> Fresh registration for individuals who need a passport on an urgent basis and are eligible for the Tatkaal service.</li>
+
       <li><strong>Relocation Support:</strong> House/apartment search, C-Form documentation, accommodation compliance.</li>
+
       <li><strong>Korean Language and Cultural Support:</strong> We provide expert Korean translation and cultural consulting for short-term projects, audits, and corporate events, ensuring seamless communication and understanding.</li>
-      <li><strong>IT Security, Cybersecurity & Korean Interpretation Services :</strong> We provide expert consulting and end-to-end support in IT Security, Cybersecurity, and Korean Interpretation for organizations and individuals. Our services support short-term IT projects, compliance audits, and certification processes, we help connect technical teams, Korean management, and auditors to ensure smooth execution of IT projects, audits, and certification activities. We assist with global security and compliance standards including:
-•	ISO/IEC 27001 – Establishing and supporting Information Security Management Systems (ISMS) to protect data from leakage, loss, or misuse.
-•	PCI DSS v4.0 – Compliance support for secure storage, processing, and transmission of credit card and payment data.
-•	SOC 1 & SOC 2 – Audit assistance to ensure secure handling of financial data (SOC 1) and customer data (SOC 2).
-•	TISAX – Security assessment support for the automotive industry, meeting headquarter and supplier compliance requirements.</li>
-      <li><strong>PAN & Aadhaar Application:</strong> Assistance with Indian identity documentation for foreigners.</li>
+
+      <!-- Updated service (justified paragraph + nested bullets) -->
+      <li>
+        <strong>IT Security, Cybersecurity &amp; Korean Interpretation Services:</strong>
+
+        <p class="justify service-desc">
+          We provide expert consulting and end-to-end support in IT Security, Cybersecurity, and Korean Interpretation for organizations and individuals.
+          Our services support short-term IT projects, compliance audits, and certification processes. We help connect technical teams, Korean management,
+          and auditors to ensure smooth execution of IT projects, audits, and certification activities.
+        </p>
+
+        <p class="justify service-desc">
+          We assist with global security and compliance standards including:
+        </p>
+
+        <ul class="sub-bullets">
+          <li><strong>ISO/IEC 27001</strong> – Establishing and supporting Information Security Management Systems (ISMS) to protect data from leakage, loss, or misuse.</li>
+          <li><strong>PCI DSS v4.0</strong> – Compliance support for secure storage, processing, and transmission of credit card and payment data.</li>
+          <li><strong>SOC 1 &amp; SOC 2</strong> – Audit assistance to ensure secure handling of financial data (SOC 1) and customer data (SOC 2).</li>
+          <li><strong>TISAX</strong> – Security assessment support for the automotive industry, meeting headquarter and supplier compliance requirements.</li>
+        </ul>
+      </li>
+
+      <li><strong>PAN &amp; Aadhaar Application:</strong> Assistance with Indian identity documentation for foreigners.</li>
+
       <li><strong>Virtual Assistance:</strong> Remote admin and customer support in Korean.</li>
+
       <li><strong>Cultural Consulting:</strong> Bridging Korean-Indian work practices and communication.</li>
+
       <li><strong>English Training:</strong> One-on-one English coaching for Korean nationals.</li>
-      <li><strong>Tax Compliance & ITR Filing for Expatriates:</strong> End-to-end support for ITR filing for expatriates in India, including income review, compliance guidance, and coordination with employers for smooth tax processing.</li>
-     <li><strong>IT Support & Troubleshooting:</strong> Computer repair, software installation, general tech help for homes and offices.</li>
-  <li><strong>Home Network Setup:</strong> Router setup, secure Wi-Fi configuration, and Wi-Fi extender installation.</li>
-  <li><strong>Smart Home Setup:</strong> Support for smart speakers, lighting, security cameras, and other smart devices.</li>
-  <li><strong>Cybersecurity and IT Solutions:</strong> We offer specialized IT and cybersecurity services on a flexible basis, helping your business with temporary upgrades, audits, and system rollouts without the need for permanent hires.</li>
-  <li><strong>IT Training & Workshops:</strong> Personalized sessions on basic tech skills, cybersecurity, and office tools.</li>
-  <li><strong>Hardware & Software Setup:</strong> New device installation, software configuration, and testing.</li>
-  <li><strong>Data Backup & Recovery:</strong> Setup of backup solutions and assistance with data recovery.</li>
-  <li><strong>CCTV Installation & Support:</strong> Camera setup, app integration, troubleshooting, and security consultation.</li>
-  </ul>
+
+      <li><strong>Tax Compliance &amp; ITR Filing for Expatriates:</strong> End-to-end support for ITR filing for expatriates in India, including income review, compliance guidance, and coordination with employers for smooth tax processing.</li>
+
+      <li><strong>IT Support &amp; Troubleshooting:</strong> Computer repair, software installation, general tech help for homes and offices.</li>
+
+      <li><strong>Home Network Setup:</strong> Router setup, secure Wi-Fi configuration, and Wi-Fi extender installation.</li>
+
+      <li><strong>Smart Home Setup:</strong> Support for smart speakers, lighting, security cameras, and other smart devices.</li>
+
+      <li><strong>Cybersecurity and IT Solutions:</strong> We offer specialized IT and cybersecurity services on a flexible basis, helping your business with temporary upgrades, audits, and system rollouts without the need for permanent hires.</li>
+
+      <li><strong>IT Training &amp; Workshops:</strong> Personalized sessions on basic tech skills, cybersecurity, and office tools.</li>
+
+      <li><strong>Hardware &amp; Software Setup:</strong> New device installation, software configuration, and testing.</li>
+
+      <li><strong>Data Backup &amp; Recovery:</strong> Setup of backup solutions and assistance with data recovery.</li>
+
+      <li><strong>CCTV Installation &amp; Support:</strong> Camera setup, app integration, troubleshooting, and security consultation.</li>
+    </ul>
   </section>
 
   <section>
