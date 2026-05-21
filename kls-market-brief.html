@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KLS Market Daily Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/kls-logo.png">
+<style>
+  :root {
+    --bg: #0a0e14;
+    --border: #1e2a38;
+    --accent: #00d4ff;
+    --gold: #f5c842;
+    --silver: #c0cfe0;
+    --green: #00e676;
+    --red: #ff4444;
+    --orange: #ff9800;
+    --text: #e0e8f0;
+    --muted: #5a7a94;
+    --card: #131c28;
+    --card2: #0f1922;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events:none; z-index:0;
+  }
+  .container { max-width:900px; margin:0 auto; padding:28px 16px; position:relative; z-index:1; }
+
+  /* ── HEADER ── */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 18px;
+    margin-bottom: 22px;
+  }
+  .header-top { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; }
+  .brand { font-family:'Bebas Neue',sans-serif; font-size:0.72rem; letter-spacing:4px; color:var(--muted); }
+  .title { font-family:'Bebas Neue',sans-serif; font-size:2.4rem; letter-spacing:2px; line-height:1; }
+  .title span { color:var(--accent); }
+  .header-meta { text-align:right; }
+  .date-str { font-family:'IBM Plex Mono',monospace; font-size:0.7rem; color:var(--muted); letter-spacing:1px; }
+  .algo-tag {
+    display:inline-block; margin-top:5px;
+    background:rgba(245,200,66,0.12); border:1px solid rgba(245,200,66,0.35);
+    color:var(--gold); font-family:'IBM Plex Mono',monospace;
+    font-size:0.6rem; padding:3px 9px; border-radius:2px; letter-spacing:1px;
+  }
+
+  /* ── PE + MMI INPUT STRIP ── */
+  .input-strip {
+    display:grid; grid-template-columns:1fr 1fr; gap:12px;
+    margin-bottom:18px;
+  }
+  .input-card {
+    background:var(--card); border:1px solid var(--border); border-radius:4px; padding:14px 16px;
+  }
+  .input-label { font-family:'IBM Plex Mono',monospace; font-size:0.65rem; color:var(--muted); letter-spacing:2px; margin-bottom:8px; }
+  .input-row { display:flex; gap:8px; align-items:center; }
+  .input-row input {
+    flex:1; background:#0a0f18; border:1px solid var(--border); border-radius:3px;
+    color:var(--text); font-family:'IBM Plex Mono',monospace; font-size:1rem;
+    padding:8px 10px; outline:none; transition:border 0.2s;
+  }
+  .input-row input:focus { border-color:var(--accent); }
+  .input-hint { font-size:0.68rem; color:var(--muted); margin-top:5px; font-family:'IBM Plex Mono',monospace; }
+
+  /* zone badge */
+  .zone-badge {
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; padding:4px 10px;
+    border-radius:2px; letter-spacing:1px; white-space:nowrap;
+  }
+  .zone-ef  { background:rgba(0,230,118,0.12); color:#00e676; border:1px solid rgba(0,230,118,0.3); }
+  .zone-f   { background:rgba(0,212,255,0.1);  color:#00d4ff; border:1px solid rgba(0,212,255,0.3); }
+  .zone-n   { background:rgba(245,200,66,0.1); color:#f5c842; border:1px solid rgba(245,200,66,0.3); }
+  .zone-g   { background:rgba(255,152,0,0.12); color:#ff9800; border:1px solid rgba(255,152,0,0.3); }
+  .zone-eg  { background:rgba(255,68,68,0.1);  color:#ff4444; border:1px solid rgba(255,68,68,0.3); }
+
+  /* ── GENERATE BTN ── */
+  .generate-btn {
+    width:100%; background:linear-gradient(135deg,#00d4ff1a,#00d4ff0d);
+    border:1px solid var(--accent); color:var(--accent);
+    font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:4px;
+    padding:16px; cursor:pointer; border-radius:4px; margin-bottom:22px;
+    transition:all 0.3s; position:relative; overflow:hidden;
+  }
+  .generate-btn::before {
+    content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+    background:linear-gradient(90deg,transparent,rgba(0,212,255,0.1),transparent);
+    transition:left 0.5s;
+  }
+  .generate-btn:hover::before { left:100%; }
+  .generate-btn:hover { box-shadow:0 0 24px rgba(0,212,255,0.2); }
+  .generate-btn:disabled { opacity:0.45; cursor:not-allowed; }
+
+  /* ── LOADING ── */
+  .loading { display:none; text-align:center; padding:36px; }
+  .loading.active { display:block; }
+  .load-text { font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--muted); letter-spacing:2px; margin-top:12px; }
+  .dots span {
+    display:inline-block; width:7px; height:7px; background:var(--accent);
+    border-radius:50%; margin:0 3px; animation:dot 1s ease-in-out infinite;
+  }
+  .dots span:nth-child(2){animation-delay:.2s}
+  .dots span:nth-child(3){animation-delay:.4s}
+  @keyframes dot { 0%,100%{opacity:.2;transform:scale(.8)} 50%{opacity:1;transform:scale(1.3)} }
+
+  /* ── MASTER SIGNAL BAR ── */
+  .master-signal {
+    border-radius:4px; padding:20px; margin-bottom:18px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    animation: fadeUp 0.4s ease forwards; opacity:0;
+  }
+  .master-signal.invest { background:rgba(0,230,118,0.07); border:1px solid rgba(0,230,118,0.35); }
+  .master-signal.hold   { background:rgba(245,200,66,0.07); border:1px solid rgba(245,200,66,0.35); }
+  .master-signal.reduce { background:rgba(255,152,0,0.07);  border:1px solid rgba(255,152,0,0.35); }
+  .master-signal.book   { background:rgba(255,68,68,0.07);  border:1px solid rgba(255,68,68,0.35); }
+  .ms-left .ms-label { font-family:'IBM Plex Mono',monospace; font-size:0.65rem; color:var(--muted); letter-spacing:2px; }
+  .ms-left .ms-action { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:3px; margin-top:2px; }
+  .ms-left .ms-action.invest { color:var(--green); }
+  .ms-left .ms-action.hold   { color:var(--gold); }
+  .ms-left .ms-action.reduce { color:var(--orange); }
+  .ms-left .ms-action.book   { color:var(--red); }
+  .ms-right { text-align:right; }
+  .ms-shift { font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--text); }
+  .ms-shift strong { color:var(--accent); }
+
+  /* ── SECTION ── */
+  .section { background:var(--card); border:1px solid var(--border); border-radius:4px; margin-bottom:14px; overflow:hidden; animation:fadeUp 0.35s ease forwards; opacity:0; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  .section:nth-child(2){animation-delay:.06s}
+  .section:nth-child(3){animation-delay:.10s}
+  .section:nth-child(4){animation-delay:.14s}
+  .section:nth-child(5){animation-delay:.18s}
+  .section:nth-child(6){animation-delay:.22s}
+
+  .sec-head {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 14px; border-bottom:1px solid var(--border);
+    background:rgba(255,255,255,0.015);
+  }
+  .sec-head-left { display:flex; align-items:center; gap:8px; }
+  .sec-icon { font-size:0.9rem; }
+  .sec-title { font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:2px; color:var(--muted); text-transform:uppercase; }
+  .sec-body { padding:14px; font-size:0.85rem; line-height:1.7; }
+  .sec-body p { margin-bottom:6px; }
+  .sec-body p:last-child { margin-bottom:0; }
+
+  /* ── FUND TABLE ── */
+  .fund-table { width:100%; border-collapse:collapse; font-size:0.8rem; }
+  .fund-table th {
+    font-family:'IBM Plex Mono',monospace; font-size:0.6rem; letter-spacing:1.5px;
+    color:var(--muted); text-transform:uppercase; padding:8px 10px;
+    border-bottom:1px solid var(--border); text-align:left; background:rgba(255,255,255,0.02);
+  }
+  .fund-table td { padding:9px 10px; border-bottom:1px solid #151f2e; vertical-align:top; }
+  .fund-table tr:last-child td { border-bottom:none; }
+  .fund-table tr:hover td { background:rgba(0,212,255,0.03); }
+  .fund-name { font-weight:500; color:var(--text); }
+  .fund-type { font-family:'IBM Plex Mono',monospace; font-size:0.62rem; color:var(--muted); margin-top:2px; }
+  .fund-action { font-family:'Bebas Neue',sans-serif; font-size:0.95rem; letter-spacing:1.5px; white-space:nowrap; }
+  .fund-action.buy    { color:var(--green); }
+  .fund-action.hold   { color:var(--gold); }
+  .fund-action.reduce { color:var(--orange); }
+  .fund-action.sell   { color:var(--red); }
+  .fund-action.boost  { color:#00ffcc; }
+  .fund-note { font-size:0.75rem; color:var(--muted); line-height:1.5; }
+
+  /* ── SENTIMENT TAGS ── */
+  .tag { display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:0.6rem; padding:2px 7px; border-radius:2px; margin:2px; letter-spacing:1px; }
+  .tag-up { background:rgba(0,230,118,0.1); color:var(--green); border:1px solid rgba(0,230,118,0.3); }
+  .tag-dn { background:rgba(255,68,68,0.1);  color:var(--red);   border:1px solid rgba(255,68,68,0.3); }
+  .tag-nt { background:rgba(245,200,66,0.1); color:var(--gold);  border:1px solid rgba(245,200,66,0.3); }
+
+  /* ── REASONING BOX ── */
+  .reason-box {
+    background:rgba(0,212,255,0.04); border:1px solid rgba(0,212,255,0.15);
+    border-radius:3px; padding:12px; font-size:0.82rem; line-height:1.65;
+    color:var(--text); margin-top:10px; font-style:italic;
+  }
+
+  /* ── SECTOR ROW ── */
+  .sector-row { display:flex; align-items:flex-start; gap:8px; margin-bottom:7px; }
+  .sector-row:last-child { margin-bottom:0; }
+
+  /* ── ERROR ── */
+  .error-box { background:rgba(255,68,68,0.08); border:1px solid rgba(255,68,68,0.3); border-radius:4px; padding:14px; color:var(--red); font-family:'IBM Plex Mono',monospace; font-size:0.75rem; display:none; margin-bottom:14px; }
+  .error-box.active { display:block; }
+
+  /* ── FOOTER ── */
+  .footer { font-family:'IBM Plex Mono',monospace; font-size:0.6rem; color:var(--muted); text-align:center; padding:14px; letter-spacing:1px; }
+
+  @media(max-width:520px) {
+    .input-strip { grid-template-columns:1fr; }
+    .title { font-size:1.8rem; }
+    .master-signal { flex-direction:column; }
+    .ms-right { text-align:left; }
+    .fund-table th:nth-child(3), .fund-table td:nth-child(3) { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <img src="assets/kls-logo.png" alt="Korean Living Support Logo"
+          style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid #1e2a38;background:#fff;padding:3px;flex-shrink:0;">
+        <div>
+          <div class="brand">KOREAN LIVING SUPPORT IN CHENNAI</div>
+          <div class="title">MARKET <span>DAILY BRIEF</span></div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--muted);letter-spacing:1px;margin-top:2px;">PERSONALISED MUTUAL FUND INTELLIGENCE BY <span style="color:var(--accent)">THAVANESH</span></div>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div class="date-str" id="dateStr">--</div>
+        <div class="algo-tag">PE + MMI ALGORITHM</div>
+        <div style="margin-top:6px;">
+          <a href="https://www.koreanlivingsupport.com" target="_blank"
+            style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:var(--muted);text-decoration:none;letter-spacing:1px;">
+            🌐 koreanlivingsupport.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK LINKS -->
+  <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
+    <a href="https://www.niftyindices.com/reports/historical-data" target="_blank"
+       style="flex:1;min-width:140px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:10px 14px;text-decoration:none;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:1px;transition:border 0.2s;"
+       onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <span>📐</span> NSE P/E RATIO
+    </a>
+    <a href="https://www.tickertape.in/market-mood-index" target="_blank"
+       style="flex:1;min-width:140px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:10px 14px;text-decoration:none;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:1px;transition:border 0.2s;"
+       onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+      <span>🎯</span> TICKERTAPE MMI
+    </a>
+  </div>
+
+  <!-- PE + MMI INPUT -->
+  <div class="input-strip">
+    <div class="input-card">
+      <div class="input-label">NIFTY 50 P/E RATIO <span style="color:#5a7a94;font-size:0.55rem">(from niftyindices.com)</span></div>
+      <div class="input-row">
+        <input type="number" id="peInput" placeholder="e.g. 20.33" step="0.01" min="10" max="40" oninput="updateZones()"/>
+        <span class="zone-badge" id="peBadge">—</span>
+      </div>
+      <div class="input-hint">Latest value from NSE Historical Data → P/E</div>
+    </div>
+    <div class="input-card">
+      <div class="input-label">MARKET MOOD INDEX <span style="color:#5a7a94;font-size:0.55rem">(from tickertape.in/mmi)</span></div>
+      <div class="input-row">
+        <input type="number" id="mmiInput" placeholder="e.g. 55.09" step="0.01" min="0" max="100" oninput="updateZones()"/>
+        <span class="zone-badge" id="mmiBadge">—</span>
+      </div>
+      <div class="input-hint">Live score from Tickertape MMI page</div>
+    </div>
+  </div>
+
+  <!-- GENERATE BUTTON -->
+  <button class="generate-btn" id="generateBtn" onclick="generateBrief()">
+    ⚡ GENERATE KLS DAILY MARKET BRIEF
+  </button>
+
+  <div class="loading" id="loading">
+    <div class="dots"><span></span><span></span><span></span></div>
+    <div class="load-text" id="loadText">SCANNING GLOBAL MARKETS...</div>
+  </div>
+
+  <div class="error-box" id="errorBox"></div>
+  <div id="output"></div>
+
+</div>
+
+<script>
+const now = new Date();
+document.getElementById('dateStr').textContent =
+  now.toLocaleDateString('en-IN',{weekday:'short',day:'2-digit',month:'short',year:'numeric'}).toUpperCase();
+
+// ── ZONE LOGIC (Yuva's exact matrix) ──
+function getPeZone(pe) {
+  if (pe <= 20.0)            return { label:'EXTREME FEAR', cls:'zone-ef', action:'invest_big' };
+  if (pe <= 21.8)            return { label:'FEAR',         cls:'zone-f',  action:'invest_small' };
+  if (pe <= 22.9)            return { label:'NEUTRAL',      cls:'zone-n',  action:'hold' };
+  if (pe <= 24.9)            return { label:'GREED',        cls:'zone-g',  action:'reduce' };
+  return                            { label:'EXTREME GREED',cls:'zone-eg', action:'book_profit' };
+}
+function getMmiZone(mmi) {
+  if (mmi <= 25)  return { label:'EXTREME FEAR', cls:'zone-ef' };
+  if (mmi <= 45)  return { label:'FEAR',         cls:'zone-f'  };
+  if (mmi <= 55)  return { label:'NEUTRAL',      cls:'zone-n'  };
+  if (mmi <= 75)  return { label:'GREED',        cls:'zone-g'  };
+  return                  { label:'EXTREME GREED',cls:'zone-eg' };
+}
+
+function updateZones() {
+  const pe  = parseFloat(document.getElementById('peInput').value);
+  const mmi = parseFloat(document.getElementById('mmiInput').value);
+  const pb  = document.getElementById('peBadge');
+  const mb  = document.getElementById('mmiBadge');
+  if (!isNaN(pe))  { const z=getPeZone(pe);   pb.textContent=z.label; pb.className='zone-badge '+z.cls; }
+  else             { pb.textContent='—'; pb.className='zone-badge'; }
+  if (!isNaN(mmi)) { const z=getMmiZone(mmi); mb.textContent=z.label; mb.className='zone-badge '+z.cls; }
+  else             { mb.textContent='—'; mb.className='zone-badge'; }
+}
+
+// ── MASTER DECISION from PE + MMI ──
+function getMasterDecision(pe, mmi) {
+  const peZ  = getPeZone(pe);
+  const mmiZ = getMmiZone(mmi);
+
+  // Combine: PE is primary, MMI confirms
+  const peA = peZ.action;
+
+  // If PE says invest but MMI says greed → downgrade
+  // If PE says reduce but MMI says fear → downgrade
+  let action = peA;
+  if (peA === 'invest_big'   && mmiZ.label.includes('GREED'))   action = 'invest_small';
+  if (peA === 'invest_small' && mmiZ.label === 'EXTREME GREED') action = 'hold';
+  if (peA === 'reduce'       && mmiZ.label.includes('FEAR'))     action = 'hold';
+  if (peA === 'book_profit'  && mmiZ.label === 'EXTREME FEAR')  action = 'reduce';
+  // If both agree → amplify
+  if (peA === 'invest_big'   && mmiZ.label === 'EXTREME FEAR')  action = 'invest_big';
+  if (peA === 'book_profit'  && mmiZ.label === 'EXTREME GREED') action = 'book_profit';
+
+  const map = {
+    invest_big:   { label:'BIG LUMP SUM INTO EQUITY',   cls:'invest', shift:'Shift 20–30% from Gold/Savings → Equity Funds' },
+    invest_small: { label:'SMALL LUMP SUM INTO EQUITY', cls:'invest', shift:'Shift 5–10% from Gold/Savings → Equity Funds' },
+    hold:         { label:'HOLD — CONTINUE SIP ONLY',   cls:'hold',   shift:'No lump sum. Continue existing SIPs only.' },
+    reduce:       { label:'REDUCE EQUITY EXPOSURE',     cls:'reduce', shift:'Move 5–10% from Equity → Gold / Savings Account' },
+    book_profit:  { label:'BOOK PARTIAL PROFITS',       cls:'book',   shift:'Move 10–20%+ from Equity → Gold / Silver / Savings' },
+  };
+  return { ...map[action], action };
+}
+
+// ── FUND CATALOGUE ──
+const FUNDS = [
+  { name:'Axis Bluechip Fund',              type:'Large Cap · Direct',         cat:'equity' },
+  { name:'Axis Focused 25 Fund',            type:'Multi Cap · Direct',         cat:'equity' },
+  { name:'Axis Long Term Equity (ELSS)',    type:'ELSS · Direct',              cat:'elss'   },
+  { name:'Axis Nifty 100 Index Fund',       type:'Index · Large Cap · Direct', cat:'equity' },
+  { name:'Axis Small Cap Fund',             type:'Small Cap · Direct',         cat:'equity_small' },
+  { name:'Axis Nifty Smallcap 50 Index',   type:'Index · Small Cap · Direct', cat:'equity_small' },
+  { name:'Axis Gold Fund',                  type:'Gold · Direct',              cat:'gold'   },
+  { name:'Axis Triple Advantage Fund',      type:'Hybrid · Direct',            cat:'hybrid' },
+  { name:'SBI Gold Fund',                   type:'Gold · Direct',              cat:'gold'   },
+  { name:'SBI Silver ETF FoF',              type:'Silver · Direct',            cat:'silver' },
+  { name:'SBI Equity Hybrid Fund',          type:'Hybrid · Regular',           cat:'hybrid' },
+  { name:'SBI Focused Equity Fund',         type:'Multi Cap · Direct',         cat:'equity' },
+  { name:'SBI Nifty Next 50 Index Fund',    type:'Index · Large+Mid · Direct', cat:'equity' },
+  { name:'SBI Healthcare Opportunity',      type:'Sectoral · Pharma · Direct', cat:'equity' },
+  { name:'SBI Magnum MidCap Fund',          type:'Mid Cap · Direct',           cat:'equity' },
+];
+
+function getFundSignal(fund, action) {
+  const a = action;
+  // Gold funds
+  if (fund.cat === 'gold') {
+    if (a === 'invest_big' || a === 'invest_small') return { act:'REDUCE / SELL', cls:'sell',   note:'Moving capital from gold to equity. Redeem partially to fund equity lump sum.' };
+    if (a === 'hold')                               return { act:'HOLD SIP',      cls:'hold',   note:'Maintain existing SIP. No new lump sum needed.' };
+    if (a === 'reduce' || a === 'book_profit')      return { act:'BUY / INCREASE',cls:'buy',    note:'Shift equity profits into gold. Good hedge at current PE levels.' };
+  }
+  // Silver
+  if (fund.cat === 'silver') {
+    if (a === 'invest_big')   return { act:'HOLD',          cls:'hold',   note:'Hold silver. Focus lump sum on equity first.' };
+    if (a === 'invest_small') return { act:'HOLD SIP',      cls:'hold',   note:'Continue SIP. Redirect extra cash to equity.' };
+    if (a === 'hold')         return { act:'HOLD SIP',      cls:'hold',   note:'Continue SIP as planned.' };
+    if (a === 'reduce')       return { act:'SMALL BUY',     cls:'buy',    note:'Consider adding a small amount as a defensive metal.' };
+    if (a === 'book_profit')  return { act:'BUY / INCREASE',cls:'buy',    note:'Shift some equity profits to silver alongside gold.' };
+  }
+  // ELSS — lock-in, treat differently
+  if (fund.cat === 'elss') {
+    if (a === 'invest_big' || a === 'invest_small') return { act:'LUMP SUM',  cls:'buy',  note:'Good time for ELSS lump sum — also saves tax. 3-yr lock-in applies.' };
+    if (a === 'hold')                               return { act:'SIP ONLY',  cls:'hold', note:'Continue SIP for tax benefit. Avoid extra lump sum at neutral PE.' };
+    return                                                 { act:'SIP ONLY',  cls:'hold', note:'Do not redeem (lock-in). Continue SIP for tax benefit only.' };
+  }
+  // Hybrid
+  if (fund.cat === 'hybrid') {
+    if (a === 'invest_big')   return { act:'SMALL LUMP SUM',cls:'buy',    note:'Hybrid auto-balances. Add a small lump sum for stable equity exposure.' };
+    if (a === 'invest_small') return { act:'HOLD SIP',      cls:'hold',   note:'Hybrid SIP is sufficient. No extra needed.' };
+    if (a === 'hold')         return { act:'HOLD SIP',      cls:'hold',   note:'Continue SIP. Hybrid needs no action at neutral PE.' };
+    if (a === 'reduce')       return { act:'PARTIAL REDEEM',cls:'reduce', note:'Move 5% from hybrid to savings account.' };
+    if (a === 'book_profit')  return { act:'PARTIAL REDEEM',cls:'reduce', note:'Redeem 10% and shift to gold/savings.' };
+  }
+  // Small cap — higher risk, be conservative
+  if (fund.cat === 'equity_small') {
+    if (a === 'invest_big')   return { act:'LUMP SUM',      cls:'buy',    note:'Small caps outperform strongly from extreme fear zones. Good entry.' };
+    if (a === 'invest_small') return { act:'SMALL LUMP SUM',cls:'buy',    note:'Add small amount. Small caps are volatile — stagger over 2-3 weeks.' };
+    if (a === 'hold')         return { act:'SIP ONLY',      cls:'hold',   note:'Hold. Small cap at neutral PE — no extra lump sum.' };
+    if (a === 'reduce')       return { act:'REDUCE FIRST',  cls:'reduce', note:'Small caps fall harder in corrections. Reduce here before large cap.' };
+    if (a === 'book_profit')  return { act:'BOOK PROFIT',   cls:'sell',   note:'Small caps are most overvalued at high PE. Redeem and shift to gold.' };
+  }
+  // Regular equity (large, multi, index, pharma, midcap)
+  if (a === 'invest_big')   return { act:'BIG LUMP SUM',  cls:'buy',    note:'Strong buy signal. PE + MMI both in fear zone. Invest from gold/savings.' };
+  if (a === 'invest_small') return { act:'LUMP SUM',      cls:'buy',    note:'Good entry. Add lump sum from savings. Stagger if unsure.' };
+  if (a === 'hold')         return { act:'HOLD SIP',      cls:'hold',   note:'Neutral zone. Continue SIP only. Wait for better entry.' };
+  if (a === 'reduce')       return { act:'PARTIAL REDEEM',cls:'reduce', note:'PE entering greed. Move 5-10% to gold or savings account.' };
+  if (a === 'book_profit')  return { act:'BOOK PROFIT',   cls:'sell',   note:'PE high + market greedy. Book partial profits. Shift to gold/silver/cash.' };
+}
+
+// ── LOADING MESSAGES ──
+const loadMsgs = ['FETCHING GLOBAL CUES...','CHECKING SECTOR PULSE...','ANALYSING GOLD SIGNALS...','PREPARING KLS DAILY BRIEF...'];
+let loadIdx = 0, loadTimer;
+function startLoadAnim() {
+  loadIdx = 0;
+  loadTimer = setInterval(() => {
+    loadIdx = (loadIdx + 1) % loadMsgs.length;
+    document.getElementById('loadText').textContent = loadMsgs[loadIdx];
+  }, 1800);
+}
+function stopLoadAnim() { clearInterval(loadTimer); }
+
+// ── MAIN GENERATE ──
+async function generateBrief() {
+  const pe  = parseFloat(document.getElementById('peInput').value);
+  const mmi = parseFloat(document.getElementById('mmiInput').value);
+  const errorBox = document.getElementById('errorBox');
+  errorBox.classList.remove('active');
+
+  if (isNaN(pe) || isNaN(mmi)) {
+    errorBox.textContent = 'Please enter both the Nifty P/E ratio and MMI score before generating.';
+    errorBox.classList.add('active');
+    return;
+  }
+
+  const btn    = document.getElementById('generateBtn');
+  const loading= document.getElementById('loading');
+  const output = document.getElementById('output');
+
+  btn.disabled = true;
+  loading.classList.add('active');
+  output.innerHTML = '';
+  startLoadAnim();
+
+  const decision = getMasterDecision(pe, mmi);
+  const peZone   = getPeZone(pe);
+  const mmiZone  = getMmiZone(mmi);
+  const today    = now.toLocaleDateString('en-IN',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+
+  // CALL 1 — Market news (global + india + sectors + gold)
+  const prompt1 = `Indian market analyst. Today is ${today}. Reply ONLY with JSON, no other text.
+{"global_cues":{"summary":"1-2 sentences: US markets close, crude oil, dollar-rupee, Asia today.","sentiment":"bullish"},"india_market":{"summary":"1-2 sentences: Gift Nifty, FII/DII, RBI news today.","sentiment":"neutral"},"sector_pulse":{"IT":{"note":"1 sentence IT sector.","sentiment":"up"},"Banking":{"note":"1 sentence Banking.","sentiment":"neutral"},"Pharma":{"note":"1 sentence Pharma.","sentiment":"up"},"Auto":{"note":"1 sentence Auto.","sentiment":"neutral"}},"gold_signal":{"summary":"1-2 sentences: gold/silver drivers today.","sentiment":"bullish"},"pe_context":"1 sentence on what Nifty PE of ${pe} means today.","reasoning":"2 sentences on market outlook for Thavanesh given PE=${pe} and MMI=${mmi}."}
+Use REAL data. Keep every text field under 25 words.`;
+
+  // CALL 2 — AI sentiment signals (separate, smaller call)
+  const prompt2 = `Indian market analyst. Today is ${today}. Reply ONLY with JSON, no other text.
+{"overall_market":{"signal":"BUY","confidence":65,"note":"1 sentence overall sentiment."},"large_cap":{"signal":"BUY","confidence":68,"note":"1 sentence large cap."},"mid_cap":{"signal":"HOLD","confidence":52,"note":"1 sentence mid cap."},"small_cap":{"signal":"HOLD","confidence":45,"note":"1 sentence small cap."},"gold":{"signal":"HOLD","confidence":55,"note":"1 sentence gold."},"silver":{"signal":"BUY","confidence":60,"note":"1 sentence silver."},"lumpsum_signal":"BUY","lumpsum_confidence":70,"redeem_signal":"HOLD","redeem_confidence":28,"ai_reasoning":"2 sentences on news sentiment buy/hold/sell decision for Indian mutual fund investor today."}
+Use REAL news-based analysis. Keep every text field under 20 words.`;
+
+  function parseJSON(text) {
+    const si = text.indexOf('{'), ei = text.lastIndexOf('}');
+    if (si===-1||ei===-1) throw new Error("No JSON found");
+    return JSON.parse(
+      text.substring(si,ei+1)
+        .replace(/[\u0000-\u001F\u007F]/g," ")
+        .replace(/[""]/g,'"').replace(/['']/g,"'")
+        .replace(/,\s*}/g,"}").replace(/,\s*]/g,"]")
+    );
+  }
+
+  async function callAPI(prompt, useSearch) {
+    const p1 = "sk-ant-api03-jq3rloUyufkbaVQDUcUDAMVvHHsb6hPwHy16ESml";
+    const p2 = "CMgAluu5WIZ9cqq1nSykkmFSF0Gedg_uz2C_CRfhRhonLQ-Zm";
+    const p3 = "fDtAAA";
+    const API_KEY = p1 + p2 + p3;
+    const body = { model:"claude-sonnet-4-20250514", max_tokens:800, messages:[{role:"user",content:prompt}] };
+    if (useSearch) body.tools = [{type:"web_search_20250305",name:"web_search"}];
+    const r = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST", headers:{"Content-Type":"application/json","x-api-key":API_KEY,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"}, body:JSON.stringify(body)
+    });
+    const d = await r.json();
+    if (d.error) throw new Error(d.error.message);
+    return (d.content||[]).map(i=>i.type==="text"?i.text:"").filter(Boolean).join("\n");
+  }
+
+  try {
+    document.getElementById('loadText').textContent = 'FETCHING MARKET NEWS...';
+    const [text1, text2] = await Promise.all([
+      callAPI(prompt1, true),
+      callAPI(prompt2, true)
+    ]);
+    const brief = parseJSON(text1);
+    const aiSentiment = parseJSON(text2);
+    brief.ai_sentiment = aiSentiment;
+    renderOutput(pe, mmi, peZone, mmiZone, decision, brief);
+  } catch(err) {
+    errorBox.textContent = "Error: " + err.message + ". Please try again.";
+    errorBox.classList.add('active');
+  } finally {
+    stopLoadAnim();
+    loading.classList.remove('active');
+    btn.disabled = false;
+  }
+}
+
+function getConfColor(v){return v>=70?'#00e676':v>=45?'#f5c842':'#ff4444';}
+
+function tag(s) {
+  const m={bullish:'tag-up',bearish:'tag-dn',neutral:'tag-nt',up:'tag-up',down:'tag-dn',positive:'tag-up',negative:'tag-dn'};
+  const l={bullish:'↑ BULLISH',bearish:'↓ BEARISH',neutral:'→ NEUTRAL',up:'↑ UP',down:'↓ DOWN',positive:'↑ POS',negative:'↓ NEG'};
+  return `<span class="tag ${m[s]||'tag-nt'}">${l[s]||s.toUpperCase()}</span>`;
+}
+
+function renderOutput(pe, mmi, peZone, mmiZone, decision, b) {
+  const genTime = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  const output  = document.getElementById('output');
+
+  // Build fund rows
+  const fundRows = FUNDS.map(f => {
+    const sig = getFundSignal(f, decision.action);
+    return `<tr>
+      <td><div class="fund-name">${f.name}</div><div class="fund-type">${f.type}</div></td>
+      <td><span class="fund-action ${sig.cls}">${sig.act}</span></td>
+      <td><div class="fund-note">${sig.note}</div></td>
+    </tr>`;
+  }).join('');
+
+  output.innerHTML = `
+    <!-- MASTER SIGNAL -->
+    <div class="master-signal ${decision.cls}">
+      <div class="ms-left">
+        <div class="ms-label">TODAY'S MASTER SIGNAL</div>
+        <div class="ms-action ${decision.cls}">${decision.label}</div>
+      </div>
+      <div class="ms-right">
+        <div class="ms-shift">PE <strong>${pe}</strong> · ${peZone.label} &nbsp;|&nbsp; MMI <strong>${mmi}</strong> · ${mmiZone.label}</div>
+        <div class="ms-shift" style="margin-top:4px">${decision.shift}</div>
+      </div>
+    </div>
+
+    <!-- FUND SIGNALS -->
+    <div class="section" style="animation-delay:.04s">
+      <div class="sec-head">
+        <div class="sec-head-left"><span class="sec-icon">📋</span><span class="sec-title">Fund-by-Fund Action — All 15 Funds</span></div>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="fund-table">
+          <thead><tr><th>Fund</th><th>Action</th><th>Note</th></tr></thead>
+          <tbody>${fundRows}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- GLOBAL CUES -->
+    <div class="section" style="animation-delay:.08s">
+      <div class="sec-head">
+        <div class="sec-head-left"><span class="sec-icon">🌍</span><span class="sec-title">Global Cues</span></div>
+        ${tag(b.global_cues?.sentiment)}
+      </div>
+      <div class="sec-body"><p>${b.global_cues?.summary||'—'}</p></div>
+    </div>
+
+    <!-- INDIA MARKET -->
+    <div class="section" style="animation-delay:.11s">
+      <div class="sec-head">
+        <div class="sec-head-left"><span class="sec-icon">🇮🇳</span><span class="sec-title">India Market</span></div>
+        ${tag(b.india_market?.sentiment)}
+      </div>
+      <div class="sec-body">
+        <p>${b.india_market?.summary||'—'}</p>
+        ${b.pe_context ? `<p style="color:var(--muted);font-size:0.8rem;margin-top:4px">📐 ${b.pe_context}</p>` : ''}
+      </div>
+    </div>
+
+    <!-- SECTOR PULSE -->
+    <div class="section" style="animation-delay:.14s">
+      <div class="sec-head">
+        <div class="sec-head-left"><span class="sec-icon">📊</span><span class="sec-title">Sector Pulse</span></div>
+      </div>
+      <div class="sec-body">
+        ${['IT','Banking','Pharma','Auto'].map(s=>{
+          const sec=b.sector_pulse?.[s]||{};
+          return `<div class="sector-row">${tag(sec.sentiment||'neutral')} <span><strong>${s}:</strong> ${sec.note||'—'}</span></div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- GOLD + SILVER -->
+    <div class="section" style="animation-delay:.17s">
+      <div class="sec-head">
+        <div class="sec-head-left"><span class="sec-icon">🥇</span><span class="sec-title">Gold & Silver Signal (Axis Gold · SBI Gold · SBI Silver)</span></div>
+        ${tag(b.gold_signal?.sentiment)}
+      </div>
+      <div class="sec-body"><p>${b.gold_signal?.summary||'—'}</p></div>
+    </div>
+
+    <!-- REASONING -->
+    <div class="section" style="animation-delay:.20s">
+      <div class="sec-head">
+        <div class="sec-head-left"><span class="sec-icon">🧠</span><span class="sec-title">KLS PE+MMI Market Reasoning</span></div>
+      </div>
+      <div class="sec-body">
+        <div class="reason-box">${b.reasoning||'—'}</div>
+      </div>
+    </div>
+
+    <!-- DIVIDER -->
+    <div style="display:flex;align-items:center;gap:12px;margin:20px 0 16px;">
+      <div style="flex:1;height:1px;background:var(--border)"></div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--muted);letter-spacing:2px;white-space:nowrap">AI NEWS SENTIMENT ANALYSIS</div>
+      <div style="flex:1;height:1px;background:var(--border)"></div>
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);margin-bottom:14px;text-align:center;letter-spacing:1px;">
+      SECONDARY SIGNAL — BASED ON TODAY'S NEWS SENTIMENT (INDEPENDENT OF PE+MMI)
+    </div>
+
+    <!-- AI LUMPSUM + REDEEM SIGNALS -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;animation:fadeUp 0.35s ease 0.24s forwards;opacity:0;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:16px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--muted);letter-spacing:2px;margin-bottom:8px;">AI LUMP SUM SIGNAL</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:2px;color:${(b.ai_sentiment?.lumpsum_signal||'HOLD')==='BUY'?'var(--green)':(b.ai_sentiment?.lumpsum_signal||'HOLD')==='AVOID'?'var(--red)':'var(--gold)'}">
+          ${b.ai_sentiment?.lumpsum_signal||'HOLD'}
+        </div>
+        <div style="margin-top:10px;">
+          <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);margin-bottom:5px;">
+            <span>CONFIDENCE</span><span id="aiLsVal">0%</span>
+          </div>
+          <div style="height:5px;background:var(--border);border-radius:3px;overflow:hidden;">
+            <div id="aiLsFill" style="height:100%;border-radius:3px;width:0%;transition:width 1s ease;background:${getConfColor(b.ai_sentiment?.lumpsum_confidence||50)}"></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:16px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--muted);letter-spacing:2px;margin-bottom:8px;">AI REDEEM SIGNAL</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:2px;color:${(b.ai_sentiment?.redeem_signal||'HOLD')==='REDEEM'?'var(--red)':(b.ai_sentiment?.redeem_signal||'HOLD')==='PARTIAL REDEEM'?'var(--orange)':'var(--gold)'}">
+          ${b.ai_sentiment?.redeem_signal||'HOLD'}
+        </div>
+        <div style="margin-top:10px;">
+          <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);margin-bottom:5px;">
+            <span>CONFIDENCE</span><span id="aiRdVal">0%</span>
+          </div>
+          <div style="height:5px;background:var(--border);border-radius:3px;overflow:hidden;">
+            <div id="aiRdFill" style="height:100%;border-radius:3px;width:0%;transition:width 1s ease;background:${getConfColor(b.ai_sentiment?.redeem_confidence||50)}"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI CATEGORY SIGNALS -->
+    <div class="section" style="animation-delay:.26s">
+      <div class="sec-head">
+        <div class="sec-head-left"><span class="sec-icon">📡</span><span class="sec-title">AI Sentiment — Category Signals</span></div>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="fund-table">
+          <thead><tr><th>Category</th><th>Signal</th><th>Confidence</th><th>Note</th></tr></thead>
+          <tbody>
+            ${['overall_market','large_cap','mid_cap','small_cap','gold','silver'].map(cat => {
+              const d = b.ai_sentiment?.[cat] || {};
+              const sig = d.signal || 'HOLD';
+              const cls = sig==='BUY'?'buy':sig==='SELL'||sig==='AVOID'?'sell':sig==='HOLD'?'hold':'reduce';
+              const conf = d.confidence || 50;
+              const label = cat.replace('_',' ').toUpperCase();
+              return `<tr>
+                <td><div class="fund-name">${label}</div></td>
+                <td><span class="fund-action ${cls}">${sig}</span></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="width:60px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;">
+                      <div style="width:${conf}%;height:100%;background:${getConfColor(conf)};border-radius:2px;"></div>
+                    </div>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted)">${conf}%</span>
+                  </div>
+                </td>
+                <td><div class="fund-note">${d.note||'—'}</div></td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- AI REASONING -->
+    <div class="section" style="animation-delay:.28s">
+      <div class="sec-head">
+        <div class="sec-head-left"><span class="sec-icon">🤖</span><span class="sec-title">AI News Sentiment Reasoning</span></div>
+      </div>
+      <div class="sec-body">
+        <div class="reason-box" style="border-color:rgba(245,200,66,0.2);background:rgba(245,200,66,0.03)">
+          ${b.ai_sentiment?.ai_reasoning||'—'}
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARISON -->
+    <div class="section" style="animation-delay:.30s;border-color:rgba(0,212,255,0.2)">
+      <div class="sec-head" style="background:rgba(0,212,255,0.04)">
+        <div class="sec-head-left"><span class="sec-icon">⚖️</span><span class="sec-title">PE+MMI vs AI Sentiment — Comparison</span></div>
+      </div>
+      <div class="sec-body">
+        <table style="width:100%;font-size:0.8rem;border-collapse:collapse;">
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:8px;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:0.65rem;">METHOD</td>
+            <td style="padding:8px;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:0.65rem;">LUMP SUM</td>
+            <td style="padding:8px;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:0.65rem;">REDEEM</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:8px;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;">📐 PE + MMI (Yuva's Logic)</td>
+            <td style="padding:8px;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:${decision.cls==='invest'?'var(--green)':decision.cls==='hold'?'var(--gold)':'var(--red)'}">
+              ${decision.action.includes('invest') ? 'BUY' : decision.action==='hold' ? 'HOLD' : 'REDUCE'}
+            </td>
+            <td style="padding:8px;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:${decision.cls==='reduce'||decision.cls==='book'?'var(--orange)':'var(--gold)'}">
+              ${decision.action==='reduce'?'PARTIAL REDEEM':decision.action==='book_profit'?'REDEEM':'HOLD'}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;">🤖 AI News Sentiment</td>
+            <td style="padding:8px;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:${(b.ai_sentiment?.lumpsum_signal||'HOLD')==='BUY'?'var(--green)':'var(--gold)'}">
+              ${b.ai_sentiment?.lumpsum_signal||'HOLD'}
+            </td>
+            <td style="padding:8px;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:${(b.ai_sentiment?.redeem_signal||'HOLD')==='HOLD'?'var(--gold)':'var(--orange)'}">
+              ${b.ai_sentiment?.redeem_signal||'HOLD'}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="footer">© KOREAN LIVING SUPPORT IN CHENNAI · GENERATED ${genTime} · PE+MMI IS PRIMARY · AI SENTIMENT IS SECONDARY · NOT FINANCIAL ADVICE</div>
+  `;
+  // animate AI confidence bars
+  setTimeout(()=>{
+    const lsC = b.ai_sentiment?.lumpsum_confidence||50;
+    const rdC = b.ai_sentiment?.redeem_confidence||50;
+    const lsF = document.getElementById('aiLsFill');
+    const rdF = document.getElementById('aiRdFill');
+    const lsV = document.getElementById('aiLsVal');
+    const rdV = document.getElementById('aiRdVal');
+    if(lsF) lsF.style.width = lsC+'%';
+    if(rdF) rdF.style.width = rdC+'%';
+    let i=0;
+    const iv = setInterval(()=>{
+      i+=2;
+      if(lsV) lsV.textContent = Math.min(i,lsC)+'%';
+      if(rdV) rdV.textContent = Math.min(i,rdC)+'%';
+      if(i>=Math.max(lsC,rdC)) clearInterval(iv);
+    },20);
+  },500);
+}
+</script>
+</body>
+</html>
