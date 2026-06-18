@@ -41,8 +41,6 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
 
 /* CONTAINER */
 .container{max-width:1100px;margin:0 auto;padding:20px 16px 40px;}
-.sample-notice{background:#FFFBF0;border:1px solid #F5A623;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:13px;color:#7A4F00;text-align:center;}
-.sample-notice strong{color:#B8860B;}
 .sections-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
 @media(max-width:700px){.sections-grid{grid-template-columns:1fr;}}
 
@@ -100,6 +98,11 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
 .update-text{font-size:13px;color:var(--text);line-height:1.6;}
 .update-time{font-size:11px;color:var(--muted);margin-top:4px;}
 
+/* ALERT BOX */
+.alert-box{margin:0 20px 16px;background:var(--red-light);border-radius:10px;padding:14px 16px;border-left:3px solid var(--red);}
+.alert-label{font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.alert-text{font-size:13px;color:var(--text);line-height:1.6;}
+
 /* NEXT ACTION */
 .next-box{margin:0 20px 20px;background:#FFFBF0;border-radius:10px;padding:14px 16px;border-left:3px solid var(--amber);}
 .next-label{font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--amber);margin-bottom:6px;}
@@ -145,17 +148,12 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
 
 <div class="meta-bar">
   <div class="meta-item">📅 Project start: <strong>15 June 2026</strong></div>
-  <div class="meta-item">🏁 Target completion: <strong>10 July 2026</strong></div>
+  <div class="meta-item">🏁 Target completion: <strong>03 July 2026</strong></div>
   <div class="meta-item">🔄 Last updated: <strong id="lastUpdated"></strong></div>
   <div class="meta-item">📍 Location: <strong>Chennai, India</strong></div>
 </div>
 
 <div class="container">
-
-  <!-- SAMPLE NOTICE -->
-  <div class="sample-notice">
-    ⚠️ <strong>Sample Version</strong> — Task details will be updated daily as work progresses. Structure and layout are confirmed.
-  </div>
 
   <!-- OVERALL PROGRESS -->
   <div class="overall-card">
@@ -171,9 +169,9 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
       <div class="bar-wrap bar-network">
         <div class="bar-label">
           <span>🌐 Network & IT</span>
-          <span class="pct">20%</span>
+          <span class="pct">18%</span>
         </div>
-        <div class="bar-track"><div class="bar-fill" style="width:20%"></div></div>
+        <div class="bar-track"><div class="bar-fill" style="width:18%"></div></div>
       </div>
     </div>
   </div>
@@ -195,8 +193,14 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
     <!-- Recent Update -->
     <div class="update-box">
       <div class="update-label">📢 Recent Update</div>
-      <div class="update-text">Landlord clearance work completed — loose racks removed from storage room (good quality racks retained), workstations cleared in MD/SA/Leaders cabin areas, pantry glass partitions removed. Interior marking team completed full site measurement and floor marking, verified on-site against approved 3D design. Material ordering in progress.</div>
-      <div class="update-time">Updated: 15 June 2026</div>
+      <div class="update-text">Landlord scope — all old AC tape, stickers and adhesive residue removed from walls. AC service technician serviced one unit inside the hall. Interior designer physically verified actual layout on-site against the approved 3D design.</div>
+      <div class="update-time">Updated: 18 June 2026</div>
+    </div>
+
+    <!-- Alert -->
+    <div class="alert-box">
+      <div class="alert-label">⚠️ Open Item — Needs Decision</div>
+      <div class="alert-text">During on-site verification, it was found that the Business Head section seating direction in the approved 3D design does not allow space for additional chairs in front of the desk as originally intended. Awaiting confirmation — additional seating required (positioned to the side) or current direction acceptable as is. Call to be scheduled to finalise.</div>
     </div>
 
     <!-- Tasks -->
@@ -251,13 +255,45 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
         </div>
       </div>
 
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Landlord scope — AC tape, stickers and adhesive residue removed from walls</div>
+          <div class="task-meta"><span class="task-date">18 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">AC servicing — 1 unit serviced inside the hall</div>
+          <div class="task-meta"><span class="task-date">18 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Physical layout verification on-site against 3D design</div>
+          <div class="task-meta"><span class="task-date">18 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
       <div class="task-group-title">Phase 2 — Execution</div>
 
       <div class="task-item">
         <div class="task-status status-progress">⟳</div>
         <div class="task-body">
-          <div class="task-name">Landlord scope — ventilation hole work and AC servicing</div>
-          <div class="task-meta"><span class="task-date">18 June 2026</span><span class="task-tag tag-progress">In Progress</span></div>
+          <div class="task-name">Business Head seating direction — decision pending</div>
+          <div class="task-meta"><span class="task-date">In discussion</span><span class="task-tag tag-progress">In Progress</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-progress">⟳</div>
+        <div class="task-body">
+          <div class="task-name">Remaining ventilation hole work</div>
+          <div class="task-meta"><span class="task-date">Ongoing</span><span class="task-tag tag-progress">In Progress</span></div>
         </div>
       </div>
 
@@ -272,8 +308,48 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
       <div class="task-item">
         <div class="task-status status-pending">○</div>
         <div class="task-body">
-          <div class="task-name">Electrical work and dry wall partition installation</div>
-          <div class="task-meta"><span class="task-date">22–26 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+          <div class="task-name">Material delivery confirmation and site stocking</div>
+          <div class="task-meta"><span class="task-date">20–21 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Dry wall partition marking and layout finalisation</div>
+          <div class="task-meta"><span class="task-date">22 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Electrical wiring — meeting room and leaders cabin</div>
+          <div class="task-meta"><span class="task-date">22–24 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Dry wall partition installation</div>
+          <div class="task-meta"><span class="task-date">24–26 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Switch boxes, conduits and electrical fittings — workstations</div>
+          <div class="task-meta"><span class="task-date">25–26 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Furniture delivery — meeting table, MD table, workstation units</div>
+          <div class="task-meta"><span class="task-date">27–28 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
         </div>
       </div>
 
@@ -282,6 +358,22 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
         <div class="task-body">
           <div class="task-name">Furniture installation — meeting room, leaders cabin, MD room</div>
           <div class="task-meta"><span class="task-date">29 June – 3 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Lighting installation — meeting room and storage rack area</div>
+          <div class="task-meta"><span class="task-date">29 June – 1 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">White board and wall panelling installation</div>
+          <div class="task-meta"><span class="task-date">1–2 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
         </div>
       </div>
 
@@ -297,7 +389,15 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
         <div class="task-status status-pending">○</div>
         <div class="task-body">
           <div class="task-name">Painting and final touch-ups</div>
-          <div class="task-meta"><span class="task-date">4–5 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
+          <div class="task-meta"><span class="task-date">2–3 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Debris removal and site cleanup</div>
+          <div class="task-meta"><span class="task-date">3 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
         </div>
       </div>
 
@@ -305,7 +405,7 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
         <div class="task-status status-pending">○</div>
         <div class="task-body">
           <div class="task-name">Final inspection and handover</div>
-          <div class="task-meta"><span class="task-date">6–10 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
+          <div class="task-meta"><span class="task-date">3 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
         </div>
       </div>
     </div>
@@ -313,9 +413,10 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
     <!-- Next Action -->
     <div class="next-box">
       <div class="next-label">⚡ Next Action Plan</div>
-      <div class="next-item"><div class="next-dot"></div>Complete ventilation hole work and AC servicing</div>
-      <div class="next-item"><div class="next-dot"></div>Finalise material order and confirm delivery schedule</div>
-      <div class="next-item"><div class="next-dot"></div>Begin electrical and dry wall partition work as per timeline</div>
+      <div class="next-item"><div class="next-dot"></div>Schedule call to finalise Business Head seating direction</div>
+      <div class="next-item"><div class="next-dot"></div>Complete remaining ventilation hole work</div>
+      <div class="next-item"><div class="next-dot"></div>Confirm material delivery and begin dry wall marking</div>
+      <div class="next-item"><div class="next-dot"></div>Begin electrical work as per timeline from 22 June</div>
     </div>
 
     <!-- Photos -->
@@ -324,7 +425,7 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
       <div class="photo-grid">
         <div class="photo-placeholder">Storage room — after clearance</div>
         <div class="photo-placeholder">Pantry — after glass removal</div>
-        <div class="photo-placeholder">Floor marking — MD/SA area</div>
+        <div class="photo-placeholder">Walls — after tape/sticker removal</div>
       </div>
     </div>
 
@@ -343,14 +444,20 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
         <div class="section-title">Network & IT Infrastructure</div>
         <div class="section-subtitle">ISP, switch, Wi-Fi APs, cabling and device setup</div>
       </div>
-      <div class="section-pct pct-network">20%</div>
+      <div class="section-pct pct-network">18%</div>
     </div>
 
     <!-- Recent Update -->
     <div class="update-box green">
       <div class="update-label">📢 Recent Update</div>
-      <div class="update-text">On-site visit completed with first network vendor — quotation received after thorough site assessment. Dedicated WhatsApp group created with Korea HQ IT team and vendor for instant communication. Second vendor site visit completed today, full technical requirements explained — quotation expected by 9:00 PM for comparison and negotiation.</div>
-      <div class="update-time">Updated: 15 June 2026</div>
+      <div class="update-text">Both vendor quotations discussed with Mr. Shin (Korea HQ IT). Based on his feedback, requested both vendors to separate network/IT items from CCTV items, and negotiation initiated for an overall 20% cost reduction on both quotations.</div>
+      <div class="update-time">Updated: 18 June 2026</div>
+    </div>
+
+    <!-- Alert -->
+    <div class="alert-box">
+      <div class="alert-label">⚠️ Timeline Dependency Flagged</div>
+      <div class="alert-text">Interior team requires network vendor finalised and on-site by Saturday, as wall and partition work is in progress and network cabling needs to be planned before walls close. Vendor finalisation is expected Monday, with network team on-site Tuesday — a 3–4 day gap. Interior team has been requested to proceed with all other non-dependent work in the meantime; some delay or rework risk has been flagged by them.</div>
     </div>
 
     <!-- Tasks -->
@@ -376,7 +483,15 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
       <div class="task-item done">
         <div class="task-status status-done">✓</div>
         <div class="task-body">
-          <div class="task-name">First network vendor — site visit completed, quotation received</div>
+          <div class="task-name">First network vendor (Intermedia Systems) — site visit completed, quotation received</div>
+          <div class="task-meta"><span class="task-date">17 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Second network vendor (Care Soft IT Works) — site visit completed, quotation received</div>
           <div class="task-meta"><span class="task-date">17 June 2026</span><span class="task-tag tag-done">Completed</span></div>
         </div>
       </div>
@@ -389,10 +504,26 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
         </div>
       </div>
 
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Both quotations reviewed internally and discussed with Mr. Shin</div>
+          <div class="task-meta"><span class="task-date">18 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
       <div class="task-item">
         <div class="task-status status-progress">⟳</div>
         <div class="task-body">
-          <div class="task-name">Second network vendor — site visit completed, quotation expected 9:00 PM today</div>
+          <div class="task-name">Vendors requested to separate network/IT vs CCTV pricing</div>
+          <div class="task-meta"><span class="task-date">18 June 2026</span><span class="task-tag tag-progress">In Progress</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-progress">⟳</div>
+        <div class="task-body">
+          <div class="task-name">Negotiating 20% overall cost reduction with both vendors</div>
           <div class="task-meta"><span class="task-date">18 June 2026</span><span class="task-tag tag-progress">In Progress</span></div>
         </div>
       </div>
@@ -408,16 +539,64 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
       <div class="task-item">
         <div class="task-status status-pending">○</div>
         <div class="task-body">
-          <div class="task-name">Review both quotations with Korea HQ IT team — finalise additions/removals</div>
-          <div class="task-meta"><span class="task-date">Target: 18 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+          <div class="task-name">Receive revised quotation — Vendor 1 (Intermedia Systems)</div>
+          <div class="task-meta"><span class="task-date">Target: 19 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
         </div>
       </div>
 
       <div class="task-item">
         <div class="task-status status-pending">○</div>
         <div class="task-body">
-          <div class="task-name">Negotiate and finalise network vendor</div>
-          <div class="task-meta"><span class="task-date">Target: 18 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+          <div class="task-name">Receive revised quotation — Vendor 2 (Care Soft IT Works)</div>
+          <div class="task-meta"><span class="task-date">Target: 19 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">UPS specification clarification — confirm correct unit and pricing</div>
+          <div class="task-meta"><span class="task-date">Target: 19 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Final side-by-side vendor comparison shared with CESCO</div>
+          <div class="task-meta"><span class="task-date">Target: 20 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">ISP quotation comparison — 200 Mbps primary + 30 Mbps backup</div>
+          <div class="task-meta"><span class="task-date">Target: 20 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Network vendor — final decision and work order</div>
+          <div class="task-meta"><span class="task-date">Target: Monday, 22 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Advance payment processed to selected vendor</div>
+          <div class="task-meta"><span class="task-date">Target: 22 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Network vendor on-site — work commencement</div>
+          <div class="task-meta"><span class="task-date">Target: Tuesday, 23 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
         </div>
       </div>
 
@@ -450,7 +629,7 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
       <div class="task-item">
         <div class="task-status status-pending">○</div>
         <div class="task-body">
-          <div class="task-name">4 Wi-Fi AP installation and cloud configuration</div>
+          <div class="task-name">Wi-Fi AP installation and cloud configuration</div>
           <div class="task-meta"><span class="task-date">Pending</span><span class="task-tag tag-pending">Pending</span></div>
         </div>
       </div>
@@ -483,10 +662,10 @@ body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-
     <!-- Next Action -->
     <div class="next-box">
       <div class="next-label">⚡ Next Action Plan</div>
-      <div class="next-item"><div class="next-dot"></div>Receive and review second vendor quotation by 9:00 PM</div>
-      <div class="next-item"><div class="next-dot"></div>Compare both quotations with Korea HQ IT team</div>
-      <div class="next-item"><div class="next-dot"></div>Negotiate and finalise network vendor by tomorrow — critical to keep interior and network work in parallel</div>
-      <div class="next-item"><div class="next-dot"></div>Finalise ISP provider — Airtel, Jio or ACT comparison</div>
+      <div class="next-item"><div class="next-dot"></div>Receive revised quotations from both vendors with separated network/CCTV scope</div>
+      <div class="next-item"><div class="next-dot"></div>Clarify UPS specification and pricing before final comparison</div>
+      <div class="next-item"><div class="next-dot"></div>Share final side-by-side comparison with CESCO for decision</div>
+      <div class="next-item"><div class="next-dot"></div>Target vendor finalisation Monday, work commencement Tuesday</div>
     </div>
 
     <!-- Photos -->
