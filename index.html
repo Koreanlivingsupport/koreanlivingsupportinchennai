@@ -1,601 +1,771 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Korean Living Support | Immigration & Relocation Services – Chennai</title>
-  <meta name="description" content="Korean Living Support (formerly Mastermind IT Security Solutions) – End-to-end immigration, IT security, relocation, and expat support for Korean nationals in Chennai, India." />
-  <link rel="icon" type="image/png" href="assets/kls-logo.png">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CESCO India Office Setup — Live Project Tracker | Korean Living Support</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --blue:#0A4F8C;
+  --blue-mid:#185FA5;
+  --blue-light:#E6F1FB;
+  --green:#1A7A4A;
+  --green-light:#E8F5EF;
+  --amber:#B8860B;
+  --amber-light:#FEF9E7;
+  --red:#C0392B;
+  --red-light:#FDEDEC;
+  --grey:#F4F6F9;
+  --border:#E0E6ED;
+  --text:#1A1A2E;
+  --muted:#6B7280;
+  --white:#FFFFFF;
+}
+body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--text);font-size:15px;line-height:1.6;}
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* HEADER */
+.header{background:var(--blue);padding:28px 20px 24px;text-align:center;}
+.header-kls{font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:8px;}
+.header h1{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,4vw,2rem);color:white;line-height:1.25;margin-bottom:6px;}
+.header-sub{font-size:13px;color:rgba(255,255,255,0.7);}
+.header-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,0.85);margin-top:14px;}
+.pulse{width:8px;height:8px;border-radius:50%;background:#4ADE80;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(1.3);}}
 
-    :root {
-      --blue-dark:   #0a4f8c;
-      --blue-mid:    #185FA5;
-      --blue-light:  #E6F1FB;
-      --teal-light:  #E1F5EE;
-      --teal-mid:    #0F6E56;
-      --amber-light: #FAEEDA;
-      --amber-mid:   #854F0B;
-      --purple-light:#EEEDFE;
-      --purple-mid:  #534AB7;
-      --coral-light: #FAECE7;
-      --coral-mid:   #993C1D;
-      --gold:        #FAC775;
-      --text-primary:#1a1a2e;
-      --text-muted:  #6b7280;
-      --border:      rgba(0,0,0,0.08);
-      --surface:     #f8f9fb;
-      --white:       #ffffff;
-      --radius-sm:   6px;
-      --radius-md:   10px;
-      --radius-lg:   16px;
-    }
+/* META BAR */
+.meta-bar{background:white;border-bottom:1px solid var(--border);padding:12px 20px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;}
+.meta-item{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:5px;}
+.meta-item strong{color:var(--text);font-weight:600;}
 
-    html { scroll-behavior: smooth; }
+/* CONTAINER */
+.container{max-width:1100px;margin:0 auto;padding:20px 16px 40px;}
+.sections-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+@media(max-width:700px){.sections-grid{grid-template-columns:1fr;}}
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--white);
-      color: var(--text-primary);
-      line-height: 1.65;
-      font-size: 15px;
-    }
+/* OVERALL PROGRESS */
+.overall-card{background:white;border-radius:14px;padding:20px;margin-bottom:20px;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.overall-title{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:14px;}
+.overall-bars{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.bar-wrap{display:flex;flex-direction:column;gap:6px;}
+.bar-label{display:flex;justify-content:space-between;align-items:center;}
+.bar-label span{font-size:13px;font-weight:600;color:var(--text);}
+.bar-label .pct{font-size:13px;font-weight:700;}
+.bar-track{height:10px;background:var(--grey);border-radius:99px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:99px;transition:width 1s ease;}
+.bar-interior .bar-fill{background:linear-gradient(90deg,#185FA5,#0A4F8C);}
+.bar-network .bar-fill{background:linear-gradient(90deg,#1A7A4A,#156B3E);}
+.bar-interior .pct{color:var(--blue);}
+.bar-network .pct{color:var(--green);}
 
-    a { color: var(--blue-mid); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+/* SECTION CARD */
+.section-card{background:white;border-radius:14px;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:20px;overflow:hidden;}
+.section-header{padding:16px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);}
+.section-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.icon-interior{background:var(--blue-light);color:var(--blue);}
+.icon-network{background:var(--green-light);color:var(--green);}
+.section-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);}
+.section-subtitle{font-size:12px;color:var(--muted);margin-top:1px;}
+.section-pct{margin-left:auto;font-size:20px;font-weight:700;}
+.pct-interior{color:var(--blue);}
+.pct-network{color:var(--green);}
 
-    /* ── NAV ── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 68px;
-    }
-    .nav-brand {
-      font-family: 'DM Serif Display', serif;
-      font-size: 18px;
-      color: var(--blue-dark);
-      text-decoration: none;
-    }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a {
-      font-size: 13px; font-weight: 500;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--blue-dark); text-decoration: none; }
-    .nav-cta {
-      background: var(--blue-dark); color: white !important;
-      padding: 7px 18px; border-radius: var(--radius-sm);
-      font-size: 13px; font-weight: 500;
-    }
-    .nav-cta:hover { background: var(--blue-mid); text-decoration: none !important; }
+/* TASK LIST */
+.task-list{padding:0 20px 16px;}
+.task-group-title{font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--muted);padding:14px 0 8px;border-bottom:1px solid var(--border);margin-bottom:8px;}
+.task-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:0.5px solid #F0F4F8;}
+.task-item:last-child{border-bottom:none;}
+.task-status{width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;margin-top:1px;}
+.status-done{background:var(--green-light);color:var(--green);border:1.5px solid var(--green);}
+.status-progress{background:#FEF9E7;color:var(--amber);border:1.5px solid var(--amber);}
+.status-pending{background:var(--grey);color:var(--muted);border:1.5px solid var(--border);}
+.task-body{flex:1;}
+.task-name{font-size:14px;font-weight:500;color:var(--text);}
+.task-item.done .task-name{color:var(--muted);text-decoration:line-through;}
+.task-meta{display:flex;gap:8px;margin-top:3px;flex-wrap:wrap;}
+.task-date{font-size:11px;color:var(--muted);}
+.task-tag{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500;}
+.tag-done{background:var(--green-light);color:var(--green);}
+.tag-progress{background:var(--amber-light);color:var(--amber);}
+.tag-pending{background:var(--grey);color:var(--muted);}
 
-    /* ── HERO ── */
-    .hero {
-      background: var(--blue-dark);
-      padding: 2.5rem 2rem 2.2rem;
-      text-align: center;
-    }
-    .hero-eyebrow {
-      display: inline-block;
-      font-size: 12px; font-weight: 500; letter-spacing: 1px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 1rem;
-    }
-    .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      color: white;
-      line-height: 1.2;
-      margin-bottom: 0.75rem;
-    }
-    .hero-sub {
-      font-size: 16px;
-      color: rgba(255,255,255,0.75);
-      max-width: 500px;
-      margin: 0 auto 1.5rem;
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 7px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      border-radius: 30px;
-      padding: 5px 16px;
-      font-size: 12px; font-weight: 500;
-      margin-bottom: 2rem;
-    }
-    .hero-badge i { font-size: 13px; }
-    .hero-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-    .btn-white {
-      background: white; color: var(--blue-dark);
-      padding: 11px 26px; border-radius: var(--radius-sm);
-      font-size: 14px; font-weight: 600;
-      text-decoration: none; transition: opacity 0.2s;
-    }
-    .btn-white:hover { opacity: 0.9; text-decoration: none; }
-    .btn-outline-white {
-      background: transparent; color: white;
-      border: 1px solid rgba(255,255,255,0.4);
-      padding: 11px 26px; border-radius: var(--radius-sm);
-      font-size: 14px; font-weight: 500;
-      text-decoration: none; transition: border-color 0.2s;
-    }
-    .btn-outline-white:hover { border-color: white; text-decoration: none; }
+/* RECENT UPDATE */
+.update-box{margin:0 20px 16px;background:var(--blue-light);border-radius:10px;padding:14px 16px;border-left:3px solid var(--blue);}
+.update-box.green{background:var(--green-light);border-left-color:var(--green);}
+.update-label{font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--blue);margin-bottom:6px;}
+.update-box.green .update-label{color:var(--green);}
+.update-text{font-size:13px;color:var(--text);line-height:1.6;}
+.update-time{font-size:11px;color:var(--muted);margin-top:4px;}
 
-    /* ── STATS BAR ── */
-    .stats-bar {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 1.5rem 2rem;
-      display: flex; justify-content: center;
-      gap: 3rem; flex-wrap: wrap;
-    }
-    .stat { text-align: center; }
-    .stat-num {
-      font-family: 'DM Serif Display', serif;
-      font-size: 26px; color: var(--blue-dark);
-      display: block;
-    }
-    .stat-lbl { font-size: 12px; color: var(--text-muted); }
+/* ALERT BOX */
+.alert-box{margin:0 20px 16px;background:var(--red-light);border-radius:10px;padding:14px 16px;border-left:3px solid var(--red);}
+.alert-label{font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.alert-text{font-size:13px;color:var(--text);line-height:1.6;}
 
-    /* ── SECTIONS ── */
-    .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
-    section { padding: 3.5rem 0; }
-    section + section { border-top: 1px solid var(--border); }
+/* NEXT ACTION */
+.next-box{margin:0 20px 20px;background:#FFFBF0;border-radius:10px;padding:14px 16px;border-left:3px solid var(--amber);}
+.next-label{font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--amber);margin-bottom:6px;}
+.next-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text);margin-bottom:5px;}
+.next-item:last-child{margin-bottom:0;}
+.next-dot{width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:7px;}
 
-    .section-label {
-      font-size: 11px; font-weight: 600; letter-spacing: 1.2px;
-      text-transform: uppercase; color: var(--blue-mid);
-      margin-bottom: 0.4rem;
-    }
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.4rem, 3vw, 1.9rem);
-      color: var(--text-primary);
-      margin-bottom: 0.75rem;
-      line-height: 1.25;
-    }
-    .section-desc {
-      color: var(--text-muted);
-      max-width: 620px;
-      margin-bottom: 2rem;
-      font-size: 15px;
-    }
+/* PHOTO SECTION */
+.photo-box{margin:0 20px 20px;}
+.photo-label{font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.photo-placeholder{aspect-ratio:1;background:var(--grey);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted);text-align:center;border:1px dashed var(--border);padding:8px;}
 
-    /* ── ABOUT ── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    .about-point {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1.1rem 1.25rem;
-      display: flex; gap: 12px; align-items: flex-start;
-    }
-    .about-point i {
-      font-size: 20px; color: var(--blue-mid);
-      margin-top: 1px; flex-shrink: 0;
-    }
-    .about-point-title { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
-    .about-point-desc { font-size: 13px; color: var(--text-muted); }
+/* FOOTER */
+.footer{text-align:center;padding:24px 20px;font-size:12px;color:var(--muted);}
+.footer a{color:var(--blue);text-decoration:none;}
+.footer-logo{font-family:'DM Serif Display',serif;font-size:16px;color:var(--blue);margin-bottom:4px;}
 
-    /* ── SERVICES ── */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px;
-    }
-    .service-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.35rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .service-card:hover {
-      border-color: #b5d4f4;
-      box-shadow: 0 4px 16px rgba(10,79,140,0.07);
-    }
-    .service-icon {
-      width: 40px; height: 40px;
-      border-radius: var(--radius-md);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 19px;
-      margin-bottom: 0.9rem;
-    }
-    .service-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 0.3rem; }
-    .service-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 0.9rem; line-height: 1.5; }
-    .tags { display: flex; flex-wrap: wrap; gap: 5px; }
-    .tag {
-      font-size: 11px; font-weight: 500;
-      padding: 3px 9px; border-radius: 20px;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      background: var(--surface);
-    }
+/* LEGEND */
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid var(--border);}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);}
+.legend-dot{width:10px;height:10px;border-radius:50%;}
+.ld-done{background:var(--green);}
+.ld-progress{background:var(--amber);}
+.ld-pending{background:#CBD5E1;}
 
-    /* ── COMPLIANCE ── */
-    .compliance-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-      gap: 12px;
-      margin-top: 1.5rem;
-    }
-    .compliance-card {
-      background: var(--purple-light);
-      border: 1px solid rgba(83,74,183,0.15);
-      border-radius: var(--radius-md);
-      padding: 1.1rem 1.25rem;
-    }
-    .compliance-card .cert { font-size: 15px; font-weight: 600; color: var(--purple-mid); }
-    .compliance-card p { font-size: 12px; color: #534AB7; margin-top: 4px; opacity: 0.85; }
-
-    /* ── TEAM ── */
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      gap: 14px;
-    }
-    .team-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      text-align: center;
-    }
-    .avatar {
-      width: 52px; height: 52px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; font-weight: 600;
-      margin: 0 auto 0.9rem;
-    }
-    .team-card h3 { font-size: 15px; font-weight: 600; }
-    .team-role { font-size: 12px; color: var(--blue-mid); font-weight: 500; margin: 3px 0 6px; }
-    .team-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-
-    /* ── CONTACT ── */
-    .contact-box {
-      background: var(--blue-dark);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem 2rem;
-      text-align: center;
-      color: white;
-    }
-    .contact-box h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.8rem; margin-bottom: 0.5rem;
-    }
-    .contact-box p { color: rgba(255,255,255,0.7); margin-bottom: 2rem; font-size: 15px; }
-    .contact-items {
-      display: flex; flex-wrap: wrap;
-      justify-content: center; gap: 1rem;
-    }
-    .contact-item {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: var(--radius-md);
-      padding: 0.9rem 1.4rem;
-      display: flex; align-items: center; gap: 10px;
-      min-width: 220px;
-    }
-    .contact-item i { font-size: 18px; color: var(--gold); }
-    .contact-item-label { font-size: 11px; color: rgba(255,255,255,0.5); display: block; }
-    .contact-item-val { font-size: 14px; font-weight: 500; color: white; }
-    .contact-item a { color: white; text-decoration: none; }
-    .contact-item a:hover { text-decoration: underline; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 1.5rem 2rem;
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-    footer .footer-old-name {
-      margin-top: 4px;
-      font-size: 11px;
-      color: #aaa;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      nav { padding: 0 1rem; }
-      .nav-links { display: none; }
-      .about-grid { grid-template-columns: 1fr; }
-      .stats-bar { gap: 1.5rem; }
-      .contact-item { min-width: 100%; }
-    }
-  </style>
+@media(max-width:500px){
+  .overall-bars{grid-template-columns:1fr;}
+}
+</style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-brand" style="display:flex;align-items:center;gap:10px;">
-      <img src="assets/kls-logo.png" alt="Korean Living Support logo" style="height:44px;width:44px;object-fit:contain;border-radius:50%;">
-      Korean Living Support
-      <img src="assets/mastermind-logo.png" alt="Mastermind IT Security Solutions logo" style="height:44px;width:44px;object-fit:contain;border-radius:6px;">
-    </a>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#team">Team</a>
-      <a href="#contact" class="nav-cta">Contact us</a>
-    </div>
-  </nav>
+<div class="header">
+  <div class="header-kls">Korean Living Support</div>
+  <h1>CESCO India Office Setup<br>Live Project Tracker</h1>
+  <div class="header-sub">Megh Towers, 2nd Floor, Maduravoyal, Chennai</div>
+  <div class="header-badge">
+    <div class="pulse"></div>
+    Live — Updated daily by Korean Living Support
+  </div>
+</div>
 
-  <!-- HERO -->
-  <div class="hero">
-    <span class="hero-eyebrow">Chennai, India · Korean Expat Specialists</span>
-    <h1>Korean Living Support</h1>
-    <p class="hero-sub">Immigration, IT security, relocation, and expat life — all under one roof.</p>
-    <div class="hero-badge">
-      <img src="assets/mastermind-logo.png" alt="Mastermind IT Security Solutions" style="height:28px;width:28px;object-fit:contain;border-radius:4px;">
-      Formerly: Mastermind IT Security Solutions — same trusted team, expanded services
-    </div>
-    <div class="hero-btns">
-      <a href="#services" class="btn-white">Explore our services</a>
-      <a href="#contact" class="btn-outline-white">Get in touch</a>
+<div class="meta-bar">
+  <div class="meta-item">📅 Project start: <strong>15 June 2026</strong></div>
+  <div class="meta-item">🏁 Target completion: <strong>13–15 July 2026</strong></div>
+  <div class="meta-item">🔄 Last updated: <strong id="lastUpdated"></strong></div>
+  <div class="meta-item">📍 Location: <strong>Chennai, India</strong></div>
+</div>
+
+<div class="container">
+
+  <!-- OVERALL PROGRESS -->
+  <div class="overall-card">
+    <div class="overall-title">Overall Project Progress</div>
+    <div class="overall-bars">
+      <div class="bar-wrap bar-interior">
+        <div class="bar-label">
+          <span>🏠 Interior Design</span>
+          <span class="pct">45%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:45%"></div></div>
+      </div>
+      <div class="bar-wrap bar-network">
+        <div class="bar-label">
+          <span>🌐 Network & IT</span>
+          <span class="pct">42%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:42%"></div></div>
+      </div>
     </div>
   </div>
 
-  <!-- STATS BAR -->
-  <div class="stats-bar">
-    <div class="stat"><span class="stat-num">5+</span><span class="stat-lbl">Service categories</span></div>
-    <div class="stat"><span class="stat-num">3</span><span class="stat-lbl">Dedicated experts</span></div>
-    <div class="stat"><span class="stat-num">한국어</span><span class="stat-lbl">Korean-first support</span></div>
-    <div class="stat"><span class="stat-num">1</span><span class="stat-lbl">Single-point partner</span></div>
+  <!-- SIDE BY SIDE SECTIONS -->
+  <div class="sections-grid">
+
+  <!-- INTERIOR SECTION -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-icon icon-interior">🏠</div>
+      <div>
+        <div class="section-title">Interior Design & Fit-Out</div>
+        <div class="section-subtitle">Landlord clearance, layout marking, and execution</div>
+      </div>
+      <div class="section-pct pct-interior">45%</div>
+    </div>
+
+    <!-- Recent Update -->
+    <div class="update-box">
+      <div class="update-label">📢 Recent Update</div>
+      <div class="update-text">Wall closing completed in coordination with the network team. Second AC unit motor fixed. Furniture order to follow based on confirmed measurements — factory to design and manufacture accordingly.</div>
+      <div class="update-time">Updated: 27 June 2026</div>
+    </div>
+
+    <!-- Tasks -->
+    <div class="task-list">
+      <div class="task-group-title">Phase 1 — Site Clearance & Marking</div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Site visit, 2D floor plan and vendor proposals completed</div>
+          <div class="task-meta"><span class="task-date">8–12 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Interior vendor finalised — ARK Spaces</div>
+          <div class="task-meta"><span class="task-date">16 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Landlord scope — loose racks removed from storage room, good racks retained</div>
+          <div class="task-meta"><span class="task-date">17 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Landlord scope — workstations cleared for MD room, SA and Leaders cabin areas</div>
+          <div class="task-meta"><span class="task-date">17 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Landlord scope — pantry area glass partitions removed</div>
+          <div class="task-meta"><span class="task-date">17 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Site measurement and floor marking completed — verified against 3D design</div>
+          <div class="task-meta"><span class="task-date">15 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Landlord scope — AC tape, stickers and adhesive residue removed from walls</div>
+          <div class="task-meta"><span class="task-date">18 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">AC servicing — 1 unit serviced inside the hall</div>
+          <div class="task-meta"><span class="task-date">18 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Physical layout verification on-site against 3D design</div>
+          <div class="task-meta"><span class="task-date">18 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-group-title">Phase 2 — Execution</div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Business Head seating direction — confirmed and finalised</div>
+          <div class="task-meta"><span class="task-date">19 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">TNEB power supply restored — office on normal government power</div>
+          <div class="task-meta"><span class="task-date">20 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">AC unit 1 — motor replaced and functional</div>
+          <div class="task-meta"><span class="task-date">20 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Wall closing completed — in coordination with network team</div>
+          <div class="task-meta"><span class="task-date">27 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Second AC unit motor fixed</div>
+          <div class="task-meta"><span class="task-date">27 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-progress">⟳</div>
+        <div class="task-body">
+          <div class="task-name">AC gas refill — to be completed</div>
+          <div class="task-meta"><span class="task-date">Ongoing</span><span class="task-tag tag-progress">In Progress</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Furniture order — based on confirmed measurements</div>
+          <div class="task-meta"><span class="task-date">Next</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Factory to design and manufacture furniture</div>
+          <div class="task-meta"><span class="task-date">After order</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Paint work — to be planned</div>
+          <div class="task-meta"><span class="task-date">Pending</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">2-ton AC procurement — after painting completed</div>
+          <div class="task-meta"><span class="task-date">After painting</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Material purchased and loaded to 2nd floor working area</div>
+          <div class="task-meta"><span class="task-date">19 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Physical partition work started on-site as per approved layout</div>
+          <div class="task-meta"><span class="task-date">20 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-progress">⟳</div>
+        <div class="task-body">
+          <div class="task-name">Partition work continuing as per layout and 3D design</div>
+          <div class="task-meta"><span class="task-date">Ongoing</span><span class="task-tag tag-progress">In Progress</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Material delivery confirmation and site stocking</div>
+          <div class="task-meta"><span class="task-date">20–21 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Dry wall partition marking and layout finalisation</div>
+          <div class="task-meta"><span class="task-date">22 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Electrical wiring — meeting room and leaders cabin</div>
+          <div class="task-meta"><span class="task-date">22–24 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Dry wall partition installation</div>
+          <div class="task-meta"><span class="task-date">24–26 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Switch boxes, conduits and electrical fittings — workstations</div>
+          <div class="task-meta"><span class="task-date">25–26 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Furniture delivery — meeting table, MD table, workstation units</div>
+          <div class="task-meta"><span class="task-date">27–28 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Furniture installation — meeting room, leaders cabin, MD room</div>
+          <div class="task-meta"><span class="task-date">29 June – 3 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Lighting installation — meeting room and storage rack area</div>
+          <div class="task-meta"><span class="task-date">29 June – 1 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">White board and wall panelling installation</div>
+          <div class="task-meta"><span class="task-date">1–2 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">CESCO branding and signage — entrance and building exterior</div>
+          <div class="task-meta"><span class="task-date">Pending</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Painting and final touch-ups</div>
+          <div class="task-meta"><span class="task-date">2–3 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Debris removal and site cleanup</div>
+          <div class="task-meta"><span class="task-date">3 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Final inspection and handover</div>
+          <div class="task-meta"><span class="task-date">3 July 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Next Action -->
+    <div class="next-box">
+      <div class="next-label">⚡ Next Action Plan</div>
+      <div class="next-item"><div class="next-dot"></div>Furniture order based on confirmed measurements</div>
+      <div class="next-item"><div class="next-dot"></div>Factory to design and manufacture furniture</div>
+      <div class="next-item"><div class="next-dot"></div>Plan and schedule paint work</div>
+      <div class="next-item"><div class="next-dot"></div>Complete AC gas refill</div>
+    </div>
+
+    <!-- Photos -->
+    <div class="photo-box">
+      <div class="photo-label">📷 Site Photos</div>
+      <div class="photo-grid">
+        <div class="photo-placeholder">Storage room — after clearance</div>
+        <div class="photo-placeholder">Pantry — after glass removal</div>
+        <div class="photo-placeholder">Walls — after tape/sticker removal</div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot ld-done"></div>Completed</div>
+      <div class="legend-item"><div class="legend-dot ld-progress"></div>In Progress</div>
+      <div class="legend-item"><div class="legend-dot ld-pending"></div>Pending</div>
+    </div>
   </div>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="container">
-      <div class="section-label">Who we are</div>
-      <h2 class="section-title">End-to-end Korean business support in India</h2>
-      <p class="section-desc">
-        We offer trusted, personalized support to Korean expatriates and their companies in Chennai. Our integrated approach combines language support, IT security consulting, compliance assistance, and local operational coordination — ensuring smooth operations between Korean headquarters and Indian teams.
-      </p>
-      <div class="about-grid">
-        <div class="about-point">
-          <i class="ti ti-shield-check"></i>
-          <div>
-            <div class="about-point-title">Trusted & experienced</div>
-            <div class="about-point-desc">Built on years of IT security expertise under Mastermind IT Security Solutions, now expanded for expat life.</div>
-          </div>
-        </div>
-        <div class="about-point">
-          <i class="ti ti-language"></i>
-          <div>
-            <div class="about-point-title">Korean-first communication</div>
-            <div class="about-point-desc">We bridge language and culture gaps so nothing gets lost in translation — literally or professionally.</div>
-          </div>
-        </div>
-        <div class="about-point">
-          <i class="ti ti-users"></i>
-          <div>
-            <div class="about-point-title">Single-point partner</div>
-            <div class="about-point-desc">From visa paperwork to CCTV setup, we handle it all — no need to coordinate multiple vendors.</div>
-          </div>
-        </div>
-        <div class="about-point">
-          <i class="ti ti-map-pin"></i>
-          <div>
-            <div class="about-point-title">Chennai-based, India-ready</div>
-            <div class="about-point-desc">Deep local knowledge of Chennai's regulations, housing, and corporate ecosystem.</div>
-          </div>
-        </div>
+  <!-- NETWORK SECTION -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-icon icon-network">🌐</div>
+      <div>
+        <div class="section-title">Network & IT Infrastructure</div>
+        <div class="section-subtitle">ISP, switch, Wi-Fi APs, cabling and device setup</div>
       </div>
+      <div class="section-pct pct-network">42%</div>
     </div>
-  </section>
 
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="container">
-      <div class="section-label">What we do</div>
-      <h2 class="section-title">Our services</h2>
-      <p class="section-desc">Five focused service categories covering everything a Korean expat or company needs in Chennai.</p>
+    <!-- Recent Update -->
+    <div class="update-box green">
+      <div class="update-label">📢 Recent Update</div>
+      <div class="update-text">Network rack fully installed with all cables properly organised and patch panel dressed. CCTV and Access Point wiring segregated and routed neatly into the rack — rack setup completed today. UPS delivered to site. UPS connection and configuration to commence from Monday 30 June.</div>
+      <div class="update-time">Updated: 27 June 2026</div>
+    </div>
 
-      <div class="services-grid">
+    <!-- Tasks -->
+    <div class="task-list">
+      <div class="task-group-title">Phase 1 — Planning & Vendor Selection</div>
 
-        <!-- Immigration -->
-        <div class="service-card">
-          <div class="service-icon" style="background:var(--blue-light);color:var(--blue-mid);">
-            <i class="ti ti-id"></i>
-          </div>
-          <h3>Immigration & Expat</h3>
-          <p>Visa, documentation, and Indian identity support for Korean nationals living and working in India.</p>
-          <div class="tags">
-            <span class="tag">FRRO registration</span>
-            <span class="tag">Visa extension</span>
-            <span class="tag">RP renewal</span>
-            <span class="tag">Exit permit</span>
-            <span class="tag">PAN & Aadhaar</span>
-            <span class="tag">Passport / Tatkaal</span>
-          </div>
-        </div>
-
-        <!-- Korean Business -->
-        <div class="service-card">
-          <div class="service-icon" style="background:var(--teal-light);color:var(--teal-mid);">
-            <i class="ti ti-language"></i>
-          </div>
-          <h3>Korean Business Support</h3>
-          <p>Bridging Korean HQ and Indian teams through language, cultural consulting, and business coordination.</p>
-          <div class="tags">
-            <span class="tag">Translation</span>
-            <span class="tag">Interpretation</span>
-            <span class="tag">Cultural consulting</span>
-            <span class="tag">Vendor coordination</span>
-            <span class="tag">Virtual assistance</span>
-            <span class="tag">English training</span>
-          </div>
-        </div>
-
-        <!-- Compliance & IT -->
-        <div class="service-card">
-          <div class="service-icon" style="background:var(--purple-light);color:var(--purple-mid);">
-            <i class="ti ti-shield-lock"></i>
-          </div>
-          <h3>Corporate Compliance & IT Security</h3>
-          <p>Expert IT security consulting, cybersecurity audits, and certification support for global standards.</p>
-          <div class="tags">
-            <span class="tag">ISO/IEC 27001</span>
-            <span class="tag">PCI DSS v4.0</span>
-            <span class="tag">SOC 1 & SOC 2</span>
-            <span class="tag">TISAX</span>
-            <span class="tag">Cybersecurity</span>
-            <span class="tag">ITR filing</span>
-          </div>
-        </div>
-
-        <!-- Lifestyle & Property -->
-        <div class="service-card">
-          <div class="service-icon" style="background:var(--amber-light);color:var(--amber-mid);">
-            <i class="ti ti-home"></i>
-          </div>
-          <h3>Lifestyle & Property</h3>
-          <p>Housing, relocation, property management, and weekend retreats for Korean expats and families.</p>
-          <div class="tags">
-            <span class="tag">Apartment search</span>
-            <span class="tag">C-Form & compliance</span>
-            <span class="tag">Property management</span>
-            <span class="tag">Farm stay / retreats</span>
-            <span class="tag">Transportation support</span>
-          </div>
-        </div>
-
-        <!-- Technical Support -->
-        <div class="service-card">
-          <div class="service-icon" style="background:var(--coral-light);color:var(--coral-mid);">
-            <i class="ti ti-device-laptop"></i>
-          </div>
-          <h3>Technical Support</h3>
-          <p>Hands-on IT help for homes and offices — from smart devices to data recovery and CCTV setup.</p>
-          <div class="tags">
-            <span class="tag">Wi-Fi setup</span>
-            <span class="tag">CCTV installation</span>
-            <span class="tag">Smart home</span>
-            <span class="tag">IT troubleshooting</span>
-            <span class="tag">Data backup</span>
-            <span class="tag">Hardware setup</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Compliance Detail -->
-      <div style="margin-top:2.5rem;">
-        <div class="section-label" style="margin-bottom:0.4rem;">Compliance standards we support</div>
-        <div class="compliance-grid">
-          <div class="compliance-card">
-            <div class="cert">ISO/IEC 27001</div>
-            <p>Information Security Management Systems — protecting data from leakage, loss, or misuse.</p>
-          </div>
-          <div class="compliance-card">
-            <div class="cert">PCI DSS v4.0</div>
-            <p>Secure storage, processing, and transmission of credit card and payment data.</p>
-          </div>
-          <div class="compliance-card">
-            <div class="cert">SOC 1 & SOC 2</div>
-            <p>Audit assistance for secure handling of financial data (SOC 1) and customer data (SOC 2).</p>
-          </div>
-          <div class="compliance-card">
-            <div class="cert">TISAX</div>
-            <p>Security assessment for the automotive industry — HQ and supplier compliance.</p>
-          </div>
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Network requirements confirmed with Korea HQ IT (Mr. Shin) — AWS Mumbai region, 200 Mbps + 30 Mbps backup, Palo Alto SASE</div>
+          <div class="task-meta"><span class="task-date">14–15 June 2026</span><span class="task-tag tag-done">Completed</span></div>
         </div>
       </div>
 
-    </div>
-  </section>
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Network and ISP vendor requirement briefs prepared</div>
+          <div class="task-meta"><span class="task-date">16 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
 
-  <!-- TEAM -->
-  <section id="team">
-    <div class="container">
-      <div class="section-label">Our people</div>
-      <h2 class="section-title">Meet the team</h2>
-      <p class="section-desc">A small, dedicated team with deep expertise in immigration, HR, IT security, and Korean business culture.</p>
-      <div class="team-grid">
-        <div class="team-card">
-          <img src="assets/Raj.png" alt="Raj Kumar" style="width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:top;margin:0 auto 0.9rem;display:block;border:3px solid var(--blue-light);">
-          <h3>Raj Kumar</h3>
-          <div class="team-role">CEO & Founder</div>
-          <div class="team-desc">Strategic lead and primary liaison with Korean corporate clients. Oversees end-to-end service delivery.</div>
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">First network vendor (Intermedia Systems) — site visit completed, quotation received</div>
+          <div class="task-meta"><span class="task-date">17 June 2026</span><span class="task-tag tag-done">Completed</span></div>
         </div>
-        <div class="team-card">
-          <img src="assets/Kalaivani.png" alt="Kalaivani" style="width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:top;margin:0 auto 0.9rem;display:block;border:3px solid var(--teal-light);">
-          <h3>Kalaivani</h3>
-          <div class="team-role">HR & Immigration Consultant</div>
-          <div class="team-desc">Hands-on support for FRRO, PAN, Aadhaar, translation, and coordination with HR teams.</div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Second network vendor (Care Soft IT Works) — site visit completed, quotation received</div>
+          <div class="task-meta"><span class="task-date">17 June 2026</span><span class="task-tag tag-done">Completed</span></div>
         </div>
-        <div class="team-card">
-          <img src="assets/Thavanesh.jpeg" alt="Y Thavanesh" style="width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:top;margin:0 auto 0.9rem;display:block;border:3px solid var(--purple-light);">
-          <h3>Y Thavanesh</h3>
-          <div class="team-role">Operations & System Administrator</div>
-          <div class="team-desc">Hands-on support for all IT and cybersecurity services, system setup, and operations.</div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Dedicated WhatsApp group created — Korea HQ IT team + vendor</div>
+          <div class="task-meta"><span class="task-date">17 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Both quotations reviewed internally and discussed with Mr. Shin</div>
+          <div class="task-meta"><span class="task-date">18 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Vendors requested to separate network/IT vs CCTV pricing — completed</div>
+          <div class="task-meta"><span class="task-date">19 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">20% overall cost reduction negotiated with both vendors — completed</div>
+          <div class="task-meta"><span class="task-date">19 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Receive revised quotation — Vendor 1 (Intermedia Systems)</div>
+          <div class="task-meta"><span class="task-date">19 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Receive revised quotation — Vendor 2 (Care Soft IT Works)</div>
+          <div class="task-meta"><span class="task-date">19 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">Network rack fully installed — cables organised, patch panel dressed</div>
+          <div class="task-meta"><span class="task-date">27 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">CCTV and Access Point wiring segregated and routed into rack</div>
+          <div class="task-meta"><span class="task-date">27 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item done">
+        <div class="task-status status-done">✓</div>
+        <div class="task-body">
+          <div class="task-name">UPS delivered to site</div>
+          <div class="task-meta"><span class="task-date">27 June 2026</span><span class="task-tag tag-done">Completed</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">UPS connection, configuration and setup</div>
+          <div class="task-meta"><span class="task-date">From 30 June 2026</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Port numbering and labelling of all network points</div>
+          <div class="task-meta"><span class="task-date">Next</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">LAN connectivity check — 48 existing workstation points, replace non-functional cables</div>
+          <div class="task-meta"><span class="task-date">Next</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Separate line laying — CCTV, Badge Access, and Access Points</div>
+          <div class="task-meta"><span class="task-date">After LAN check</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-group-title">Phase 2 — Installation & Setup</div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Existing LAN cable testing using LAN tester</div>
+          <div class="task-meta"><span class="task-date">After interior layout confirmed</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Network rack installation and switch setup</div>
+          <div class="task-meta"><span class="task-date">Pending</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Wi-Fi AP installation and cloud configuration</div>
+          <div class="task-meta"><span class="task-date">Pending</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Biometric attendance and CCTV installation</div>
+          <div class="task-meta"><span class="task-date">Pending</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Palo Alto SASE device agent installation on all office computers</div>
+          <div class="task-meta"><span class="task-date">Pending — Korea HQ to coordinate</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">Network testing, speed verification and final handover</div>
+          <div class="task-meta"><span class="task-date">Pending</span><span class="task-tag tag-pending">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-status status-pending">○</div>
+        <div class="task-body">
+          <div class="task-name">ISP leased line installation — 200 Mbps primary + 30 Mbps backup</div>
+          <div class="task-meta"><span class="task-date">Pending vendor selection</span><span class="task-tag tag-pending">Pending</span></div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="container">
-      <div class="contact-box">
-        <h2>Get in touch</h2>
-        <p>Reach us by phone, WhatsApp, or email — we respond in Korean and English.</p>
-        <div class="contact-items">
-          <div class="contact-item">
-            <i class="ti ti-phone"></i>
-            <div>
-              <span class="contact-item-label">Mobile / WhatsApp</span>
-              <a href="tel:+917985040232" class="contact-item-val">+91 79850 40232</a>
-            </div>
-          </div>
-          <div class="contact-item">
-            <i class="ti ti-mail"></i>
-            <div>
-              <span class="contact-item-label">Email</span>
-              <a href="mailto:kalaivani@koreanlivingsupport.com" class="contact-item-val">kalaivani@koreanlivingsupport.com</a>
-            </div>
-          </div>
-          <div class="contact-item">
-            <i class="ti ti-world"></i>
-            <div>
-              <span class="contact-item-label">Website</span>
-              <a href="https://www.koreanlivingsupport.com" class="contact-item-val">koreanlivingsupport.com</a>
-            </div>
-          </div>
-        </div>
+    <!-- Next Action -->
+    <div class="next-box">
+      <div class="next-label">⚡ Next Action Plan</div>
+      <div class="next-item"><div class="next-dot"></div>UPS connection and configuration — from Monday 30 June</div>
+      <div class="next-item"><div class="next-dot"></div>Port numbering and labelling of all network points</div>
+      <div class="next-item"><div class="next-dot"></div>LAN connectivity check — 48 workstation points</div>
+      <div class="next-item"><div class="next-dot"></div>Finalise ISP provider — TATA ILL primary + ACT broadband backup</div>
+    </div>
+
+    <!-- Photos -->
+    <div class="photo-box">
+      <div class="photo-label">📷 Site Photos</div>
+      <div class="photo-grid">
+        <div class="photo-placeholder">Existing LAN cable runs</div>
+        <div class="photo-placeholder">Electrical DB panel</div>
+        <div class="photo-placeholder">Vendor site assessment</div>
       </div>
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div>&copy; 2026 Korean Living Support — All rights reserved.</div>
-    <div class="footer-old-name" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px;">
-      <img src="assets/mastermind-logo.png" alt="Mastermind IT Security Solutions" style="height:16px;width:16px;object-fit:contain;border-radius:3px;opacity:0.6;">
-      Formerly known as Mastermind IT Security Solutions. Same team, expanded services.
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot ld-done"></div>Completed</div>
+      <div class="legend-item"><div class="legend-dot ld-progress"></div>In Progress</div>
+      <div class="legend-item"><div class="legend-dot ld-pending"></div>Pending</div>
     </div>
-  </footer>
+  </div>
 
+  </div><!-- end sections-grid -->
+
+</div><!-- end container -->
+
+<div class="footer">
+  <div class="footer-logo">Korean Living Support</div>
+  <div>Project managed by <a href="https://www.koreanlivingsupport.com">koreanlivingsupport.com</a> · +91 79850 40232</div>
+  <div style="margin-top:4px;">For any queries contact Raj Kumar — kalaivani@koreanlivingsupport.com</div>
+</div>
+
+<script>
+const d = new Date();
+document.getElementById('lastUpdated').textContent = d.toLocaleDateString('en-IN', {day:'numeric',month:'long',year:'numeric'});
+</script>
 </body>
 </html>
