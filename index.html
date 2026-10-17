@@ -1,602 +1,171 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Korean Living Support | Immigration & Relocation Services – Chennai</title>
-  <meta name="description" content="Korean Living Support (formerly Mastermind IT Security Solutions) – End-to-end immigration, IT security, relocation, and expat support for Korean nationals in Chennai, India." />
-  <link rel="icon" type="image/png" href="assets/kls-logo.png">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --blue-dark:   #0a4f8c;
-      --blue-mid:    #185FA5;
-      --blue-light:  #E6F1FB;
-      --teal-light:  #E1F5EE;
-      --teal-mid:    #0F6E56;
-      --amber-light: #FAEEDA;
-      --amber-mid:   #854F0B;
-      --purple-light:#EEEDFE;
-      --purple-mid:  #534AB7;
-      --coral-light: #FAECE7;
-      --coral-mid:   #993C1D;
-      --gold:        #FAC775;
-      --text-primary:#1a1a2e;
-      --text-muted:  #6b7280;
-      --border:      rgba(0,0,0,0.08);
-      --surface:     #f8f9fb;
-      --white:       #ffffff;
-      --radius-sm:   6px;
-      --radius-md:   10px;
-      --radius-lg:   16px;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--white);
-      color: var(--text-primary);
-      line-height: 1.65;
-      font-size: 15px;
-    }
-
-    a { color: var(--blue-mid); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 68px;
-    }
-    .nav-brand {
-      font-family: 'DM Serif Display', serif;
-      font-size: 18px;
-      color: var(--blue-dark);
-      text-decoration: none;
-    }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a {
-      font-size: 13px; font-weight: 500;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--blue-dark); text-decoration: none; }
-    .nav-cta {
-      background: var(--blue-dark); color: white !important;
-      padding: 7px 18px; border-radius: var(--radius-sm);
-      font-size: 13px; font-weight: 500;
-    }
-    .nav-cta:hover { background: var(--blue-mid); text-decoration: none !important; }
-
-    /* ── HERO ── */
-    .hero {
-      background: var(--blue-dark);
-      padding: 2.5rem 2rem 2.2rem;
-      text-align: center;
-    }
-    .hero-eyebrow {
-      display: inline-block;
-      font-size: 12px; font-weight: 500; letter-spacing: 1px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 1rem;
-    }
-    .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      color: white;
-      line-height: 1.2;
-      margin-bottom: 0.75rem;
-    }
-    .hero-sub {
-      font-size: 16px;
-      color: rgba(255,255,255,0.75);
-      max-width: 500px;
-      margin: 0 auto 1.5rem;
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 7px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      border-radius: 30px;
-      padding: 5px 16px;
-      font-size: 12px; font-weight: 500;
-      margin-bottom: 2rem;
-    }
-    .hero-badge i { font-size: 13px; }
-    .hero-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-    .btn-white {
-      background: white; color: var(--blue-dark);
-      padding: 11px 26px; border-radius: var(--radius-sm);
-      font-size: 14px; font-weight: 600;
-      text-decoration: none; transition: opacity 0.2s;
-    }
-    .btn-white:hover { opacity: 0.9; text-decoration: none; }
-    .btn-outline-white {
-      background: transparent; color: white;
-      border: 1px solid rgba(255,255,255,0.4);
-      padding: 11px 26px; border-radius: var(--radius-sm);
-      font-size: 14px; font-weight: 500;
-      text-decoration: none; transition: border-color 0.2s;
-    }
-    .btn-outline-white:hover { border-color: white; text-decoration: none; }
-
-    /* ── STATS BAR ── */
-    .stats-bar {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 1.5rem 2rem;
-      display: flex; justify-content: center;
-      gap: 3rem; flex-wrap: wrap;
-    }
-    .stat { text-align: center; }
-    .stat-num {
-      font-family: 'DM Serif Display', serif;
-      font-size: 26px; color: var(--blue-dark);
-      display: block;
-    }
-    .stat-lbl { font-size: 12px; color: var(--text-muted); }
-
-    /* ── SECTIONS ── */
-    .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
-    section { padding: 3.5rem 0; }
-    section + section { border-top: 1px solid var(--border); }
-
-    .section-label {
-      font-size: 11px; font-weight: 600; letter-spacing: 1.2px;
-      text-transform: uppercase; color: var(--blue-mid);
-      margin-bottom: 0.4rem;
-    }
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.4rem, 3vw, 1.9rem);
-      color: var(--text-primary);
-      margin-bottom: 0.75rem;
-      line-height: 1.25;
-    }
-    .section-desc {
-      color: var(--text-muted);
-      max-width: 620px;
-      margin-bottom: 2rem;
-      font-size: 15px;
-    }
-
-    /* ── ABOUT ── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    .about-point {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1.1rem 1.25rem;
-      display: flex; gap: 12px; align-items: flex-start;
-    }
-    .about-point i {
-      font-size: 20px; color: var(--blue-mid);
-      margin-top: 1px; flex-shrink: 0;
-    }
-    .about-point-title { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
-    .about-point-desc { font-size: 13px; color: var(--text-muted); }
-
-    /* ── SERVICES ── */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px;
-    }
-    .service-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.35rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .service-card:hover {
-      border-color: #b5d4f4;
-      box-shadow: 0 4px 16px rgba(10,79,140,0.07);
-    }
-    .service-icon {
-      width: 40px; height: 40px;
-      border-radius: var(--radius-md);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 19px;
-      margin-bottom: 0.9rem;
-    }
-    .service-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 0.3rem; }
-    .service-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 0.9rem; line-height: 1.5; }
-    .tags { display: flex; flex-wrap: wrap; gap: 5px; }
-    .tag {
-      font-size: 11px; font-weight: 500;
-      padding: 3px 9px; border-radius: 20px;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      background: var(--surface);
-    }
-
-    /* ── COMPLIANCE ── */
-    .compliance-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-      gap: 12px;
-      margin-top: 1.5rem;
-    }
-    .compliance-card {
-      background: var(--purple-light);
-      border: 1px solid rgba(83,74,183,0.15);
-      border-radius: var(--radius-md);
-      padding: 1.1rem 1.25rem;
-    }
-    .compliance-card .cert { font-size: 15px; font-weight: 600; color: var(--purple-mid); }
-    .compliance-card p { font-size: 12px; color: #534AB7; margin-top: 4px; opacity: 0.85; }
-
-    /* ── TEAM ── */
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      gap: 14px;
-    }
-    .team-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      text-align: center;
-    }
-    .avatar {
-      width: 52px; height: 52px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; font-weight: 600;
-      margin: 0 auto 0.9rem;
-    }
-    .team-card h3 { font-size: 15px; font-weight: 600; }
-    .team-role { font-size: 12px; color: var(--blue-mid); font-weight: 500; margin: 3px 0 6px; }
-    .team-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-
-    /* ── CONTACT ── */
-    .contact-box {
-      background: var(--blue-dark);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem 2rem;
-      text-align: center;
-      color: white;
-    }
-    .contact-box h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.8rem; margin-bottom: 0.5rem;
-    }
-    .contact-box p { color: rgba(255,255,255,0.7); margin-bottom: 2rem; font-size: 15px; }
-    .contact-items {
-      display: flex; flex-wrap: wrap;
-      justify-content: center; gap: 1rem;
-    }
-    .contact-item {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: var(--radius-md);
-      padding: 0.9rem 1.4rem;
-      display: flex; align-items: center; gap: 10px;
-      min-width: 220px;
-    }
-    .contact-item i { font-size: 18px; color: var(--gold); }
-    .contact-item-label { font-size: 11px; color: rgba(255,255,255,0.5); display: block; }
-    .contact-item-val { font-size: 14px; font-weight: 500; color: white; }
-    .contact-item a { color: white; text-decoration: none; }
-    .contact-item a:hover { text-decoration: underline; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 1.5rem 2rem;
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-    footer .footer-old-name {
-      margin-top: 4px;
-      font-size: 11px;
-      color: #aaa;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      nav { padding: 0 1rem; }
-      .nav-links { display: none; }
-      .about-grid { grid-template-columns: 1fr; }
-      .stats-bar { gap: 1.5rem; }
-      .contact-item { min-width: 100%; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Korean Expat Services in Chennai | Korean Living Support</title>
+<meta name="description" content="Housing, FRRO, translation and IT support for Korean companies and families in Chennai. Korean-speaking team. WhatsApp +91 79850 40232.">
+<link rel="canonical" href="https://koreanlivingsupport.com/">
+<link rel="alternate" hreflang="en" href="https://koreanlivingsupport.com/">
+<link rel="alternate" hreflang="ko" href="https://koreanlivingsupport.com/ko/">
+<link rel="alternate" hreflang="x-default" href="https://koreanlivingsupport.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Korean Expat Services in Chennai | Korean Living Support">
+<meta property="og:description" content="Housing, FRRO, translation and IT support for Korean companies and families in Chennai. Korean-speaking team. WhatsApp +91 79850 40232.">
+<meta property="og:url" content="https://koreanlivingsupport.com/">
+<meta property="og:image" content="https://koreanlivingsupport.com/assets/img/og-image.jpg">
+<meta property="og:locale" content="en_IN">
+<meta name="theme-color" content="#12305C">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "@id": "https://koreanlivingsupport.com/#business", "name": "Korean Living Support", "alternateName": ["KLS", "코리안 리빙 서포트", "Mastermind IT Security Solutions"], "url": "https://koreanlivingsupport.com/", "logo": "https://koreanlivingsupport.com/assets/img/kls-logo-512.png", "image": "https://koreanlivingsupport.com/assets/img/og-image.jpg", "telephone": "+91-79850-40232", "email": "kalaivani@koreanlivingsupport.com", "address": {"@type": "PostalAddress", "streetAddress": "Kaspapuram", "addressLocality": "Chennai", "postalCode": "600126", "addressRegion": "Tamil Nadu", "addressCountry": "IN"}, "areaServed": ["Chennai", "Anna Nagar", "Kilpauk", "Sriperumbudur", "Oragadam", "Irungattukottai"], "knowsLanguage": ["ko", "en", "ta"], "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services for Korean expats and companies", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Expat apartment and villa search in Chennai"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "FRRO registration and visa services in Chennai"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Korean translation, interpretation and business support"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "ISO 27001, TISAX, PCI DSS and SOC 2 consulting"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "CCTV, Wi-Fi and IT support in Chennai"}}]}}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="wrap nav">
+<a class="brand" href="./">
+<img src="assets/img/kls-logo-96.png" alt="" width="44" height="44">
+<span><b>Korean Living Support</b><small>코리안 리빙 서포트, Chennai</small></span>
+</a>
+<nav class="nav-links" aria-label="Main"><a href="expat-housing-chennai/">Find a home</a><a href="frro-visa-services-chennai/">Visa &amp; FRRO</a><a href="korean-translation-business-support/">Business support</a><a href="iso-27001-tisax-consulting/">Certification</a><a href="home-office-it-support-chennai/">IT support</a></nav>
+<div class="nav-actions">
+<a class="lang" href="ko/" hreflang="ko" lang="ko" aria-label="한국어로 보기">한국어</a>
+<a class="btn btn-gold nav-wa" href="https://wa.me/917985040232?text=Hello%20KLS%2C%20I%20would%20like%20to%20ask%20about%20your%20services."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg><span>WhatsApp us</span></a>
+</div>
+</div>
+<nav class="subnav" aria-label="Services"><a href="expat-housing-chennai/">Find a home</a><a href="frro-visa-services-chennai/">Visa &amp; FRRO</a><a href="korean-translation-business-support/">Business support</a><a href="iso-27001-tisax-consulting/">Certification</a><a href="home-office-it-support-chennai/">IT support</a></nav>
+</header>
+<main id="main">
+<section class="hero">
+<img class="hero-bg" src="assets/img/housing.jpg" alt="" fetchpriority="high">
+<div class="hero-shade"></div>
+<span class="tag">Concept visual</span>
+<div class="wrap hero-inner">
+<h1>Premium apartments and villas in Chennai, found and signed in Korean.</h1>
+<p class="lead">We match you with homes from our own network of house owners, then handle viewings, negotiation, the agreement and move-in. Visas, business support and IT are covered by the same team.</p>
+<div class="finder">
+<div class="finder-tabs" role="tablist" aria-label="Choose what you need"><button type="button" role="tab" id="tab-housing" aria-controls="panel-housing" aria-selected="true" tabindex="0">Find a home</button><button type="button" role="tab" id="tab-visa" aria-controls="panel-visa" aria-selected="false" tabindex="-1">Visa &amp; FRRO</button><button type="button" role="tab" id="tab-biz" aria-controls="panel-biz" aria-selected="false" tabindex="-1">Business support</button><button type="button" role="tab" id="tab-comp" aria-controls="panel-comp" aria-selected="false" tabindex="-1">Certification</button><button type="button" role="tab" id="tab-tech" aria-controls="panel-tech" aria-selected="false" tabindex="-1">IT support</button></div>
+<div class="finder-card"><div class="finder-panel" id="panel-housing" role="tabpanel" aria-labelledby="tab-housing" data-home-finder data-intro="Hello KLS, I am looking for a home in Chennai.">
+<div data-field data-label="Home type"><div class="field-label">Home type</div><div class="chips"><button type="button" class="chip" aria-pressed="true">Apartment</button><button type="button" class="chip" aria-pressed="false">Villa / independent house</button><button type="button" class="chip" aria-pressed="false">Serviced apartment</button></div></div><div data-field data-label="Bedrooms"><div class="field-label">Bedrooms</div><div class="chips"><button type="button" class="chip" aria-pressed="false">2 BHK</button><button type="button" class="chip" aria-pressed="true">3 BHK</button><button type="button" class="chip" aria-pressed="false">4 BHK or more</button></div></div><div data-field data-label="Preferred area"><div class="field-label">Preferred area</div><div class="chips"><button type="button" class="chip" aria-pressed="false">Anna Nagar</button><button type="button" class="chip" aria-pressed="false">Kilpauk</button><button type="button" class="chip" aria-pressed="false">Chennai city</button><button type="button" class="chip" aria-pressed="false">Near the plant (Sriperumbudur / Oragadam)</button><button type="button" class="chip" aria-pressed="true">Advise me</button></div></div><div data-field data-label="Monthly rent"><div class="field-label">Monthly rent</div><div class="chips"><button type="button" class="chip" aria-pressed="false">Up to ₹1 lakh</button><button type="button" class="chip" aria-pressed="true">₹1–2 lakh</button><button type="button" class="chip" aria-pressed="false">Over ₹2 lakh</button><button type="button" class="chip" aria-pressed="false">Company lease</button></div></div>
+<div class="finder-foot"><a class="btn btn-gold" data-home-link href="https://wa.me/917985040232?text=Hello%20KLS%2C%20I%20am%20looking%20for%20a%20home%20in%20Chennai.%0A-%20Home%20type%3A%20Apartment%0A-%20Bedrooms%3A%203%20BHK%0A-%20Preferred%20area%3A%20Advise%20me%0A-%20Monthly%20rent%3A%20%E2%82%B91%E2%80%932%20lakh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>Get matching homes</a><small>Opens WhatsApp with your choices filled in. We reply with homes that fit.</small></div>
+</div><div class="finder-panel" id="panel-visa" role="tabpanel" aria-labelledby="tab-visa" hidden>
+<span class="panel-title">We handle your visa and immigration paperwork</span><ul class="checks"><li>FRRO registration and C-Form after arrival</li><li>Visa extension and residential permit renewal</li><li>Exit permit before leaving India</li><li>PAN and income tax (ITR) filing</li></ul>
+<div class="finder-foot"><a class="btn btn-cobalt" href="https://wa.me/917985040232?text=Hello%20KLS%2C%20I%20need%20help%20with%20visa%20/%20FRRO."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>Ask about visa &amp; FRRO</a><a href="frro-visa-services-chennai/">Visa &amp; FRRO services</a></div>
+</div><div class="finder-panel" id="panel-biz" role="tabpanel" aria-labelledby="tab-biz" hidden>
+<span class="panel-title">Language and coordination between Korean HQ and India</span><ul class="checks"><li>Interpretation for vendor meetings, document translation</li><li>HQ to India coordination and cultural consulting</li><li>Vendor management</li><li>English training for Korean staff</li></ul>
+<div class="finder-foot"><a class="btn btn-cobalt" href="https://wa.me/917985040232?text=Hello%20KLS%2C%20we%20are%20a%20Korean%20company%20in%20Chennai%20and%20need%20business%20support."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>Ask about business support</a><a href="korean-translation-business-support/">Business support</a></div>
+</div><div class="finder-panel" id="panel-comp" role="tabpanel" aria-labelledby="tab-comp" hidden>
+<span class="panel-title">Security certification ready for HQ audits</span><ul class="checks"><li>ISO/IEC 27001 implementation and audit</li><li>TISAX for automotive suppliers</li><li>PCI DSS v4.0 and SOC 1/2</li><li>Cybersecurity checks</li></ul>
+<div class="finder-foot"><a class="btn btn-cobalt" href="https://wa.me/917985040232?text=Hello%20KLS%2C%20we%20need%20security%20certification%20consulting."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>Ask about certification</a><a href="iso-27001-tisax-consulting/">Certification consulting</a></div>
+</div><div class="finder-panel" id="panel-tech" role="tabpanel" aria-labelledby="tab-tech" hidden>
+<span class="panel-title">IT problems at home and in the office, fixed</span><ul class="checks"><li>Wi-Fi and internet setup</li><li>CCTV and smart home installation</li><li>PC and laptop troubleshooting</li><li>Data backup</li></ul>
+<div class="finder-foot"><a class="btn btn-cobalt" href="https://wa.me/917985040232?text=Hello%20KLS%2C%20I%20need%20IT%20/%20tech%20support."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>Request IT support</a><a href="home-office-it-support-chennai/">IT support</a></div>
+</div></div>
+</div>
+</div>
+</section>
+<section class="trust" aria-label="Why KLS"><ul><li>Our own network of house owners</li><li>Viewings and contracts explained in Korean</li><li>Registered Chennai company</li><li>Same team as Mastermind IT Security Solutions</li></ul></section>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-brand" style="display:flex;align-items:center;gap:10px;">
-      <img src="assets/kls-logo.png" alt="Korean Living Support logo" style="height:44px;width:44px;object-fit:contain;border-radius:50%;">
-      Korean Living Support
-      <img src="assets/mastermind-logo.png" alt="Mastermind IT Security Solutions logo" style="height:44px;width:44px;object-fit:contain;border-radius:6px;">
-    </a>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#team">Team</a>
-      <a href="#contact" class="nav-cta">Contact us</a>
-    </div>
-  </nav>
+<section class="section" id="services"><div class="wrap stack-lg">
+<h2 style="max-width:20em">Five services for living and doing business in Chennai</h2>
+<div class="tiles"><a class="tile featured" href="expat-housing-chennai/"><span class="badge">주거</span><b>Homes &amp; property</b><span class="d">Apartment and villa search, negotiation, agreement and care after move-in.</span><span class="more">Find a home</span></a><a class="tile" href="frro-visa-services-chennai/"><span class="badge">비자</span><b>Immigration &amp; stay</b><span class="d">FRRO registration, visa extension, residential permit, exit permit, PAN.</span><span class="more">Visa &amp; FRRO services</span></a><a class="tile" href="korean-translation-business-support/"><span class="badge">기업</span><b>Korean business support</b><span class="d">Interpretation, translation, HQ coordination and vendor management.</span><span class="more">Business support</span></a><a class="tile" href="iso-27001-tisax-consulting/"><span class="badge">인증</span><b>Certification &amp; IT security</b><span class="d">ISO 27001, TISAX, PCI DSS and SOC 2 consulting and audit support.</span><span class="more">Certification consulting</span></a><a class="tile" href="home-office-it-support-chennai/"><span class="badge">IT</span><b>IT &amp; tech support</b><span class="d">CCTV, Wi-Fi, smart home and IT support for homes and offices.</span><span class="more">IT support</span></a></div>
+</div></section>
 
-  <!-- HERO -->
-  <div class="hero">
-    <span class="hero-eyebrow">Chennai, India · Korean Expat Specialists</span>
-    <h1>Korean Living Support</h1>
-    <p class="hero-sub">Immigration, IT security, relocation, and expat life — all under one roof.</p>
-    <div class="hero-badge">
-      <img src="assets/mastermind-logo.png" alt="Mastermind IT Security Solutions" style="height:28px;width:28px;object-fit:contain;border-radius:4px;">
-      Formerly: Mastermind IT Security Solutions — same trusted team, expanded services
-    </div>
-    <div class="hero-btns">
-      <a href="#services" class="btn-white">Explore our services</a>
-      <a href="#contact" class="btn-outline-white">Get in touch</a>
-    </div>
-  </div>
+<section class="section dark" id="homes"><div class="wrap stack-lg">
+<div class="stack" style="max-width:720px"><h2>The easiest way to find a good home in Chennai</h2><p class="lead">No scrolling through portals. We talk to owners directly and only show you homes we have already checked against what Korean families need.</p>
+<a class="btn btn-gold" style="align-self:flex-start" href="expat-housing-chennai/">See how our housing service works</a></div>
+<div class="types"><div class="type"><b>Gated community apartments</b><span>Security, power backup, and a pool or gym in a managed complex.</span></div><div class="type"><b>Independent villas</b><span>Family homes with a garden and more space.</span></div><div class="type"><b>Serviced apartments</b><span>Furnished, cleaned stays for the first weeks or short assignments.</span></div><div class="type"><b>Company leases</b><span>Leases in the company&#x27;s name for several expat staff, managed together.</span></div></div>
+<div class="two">
+<div class="stack"><h3 style="font-size:24px">Why find your home with KLS</h3><div class="why"><div><b>Our own owner network</b><span>We search our list of house owners first for homes that match your brief.</span></div><div><b>Viewings in Korean</b><span>We explain distances to school, office and shops in Korean.</span></div><div><b>Negotiation on your side</b><span>Rent, deposit and repairs before move-in, negotiated for you.</span></div><div><b>Your contact after signing</b><span>Repairs, owner communication and renewal, handled for you.</span></div></div></div>
+<div class="stack"><h3 style="font-size:24px">Six steps to your keys</h3><ol class="steps"><li><div><b>Brief</b><span>Family size, school, office location and budget.</span></div></li><li><div><b>Shortlist</b><span>Homes from our owner network, sent with photos.</span></div></li><li><div><b>Viewings</b><span>Visit each home with a Korean-speaking guide.</span></div></li><li><div><b>Negotiation</b><span>Rent, deposit, repairs and furnishing agreed.</span></div></li><li><div><b>Agreement and documents</b><span>Lease drafting and review, registration, C-Form.</span></div></li><li><div><b>Move-in and after</b><span>Internet and utilities connected, repairs and renewals handled.</span></div></li></ol></div>
+</div>
+</div></section>
 
-  <!-- STATS BAR -->
-  <div class="stats-bar">
-    <div class="stat"><span class="stat-num">5+</span><span class="stat-lbl">Service categories</span></div>
-    <div class="stat"><span class="stat-num">3</span><span class="stat-lbl">Dedicated experts</span></div>
-    <div class="stat"><span class="stat-num">한국어</span><span class="stat-lbl">Korean-first support</span></div>
-    <div class="stat"><span class="stat-num">1</span><span class="stat-lbl">Single-point partner</span></div>
-  </div>
+<section class="section" id="areas"><div class="wrap two" style="align-items:center">
+<div class="stack" style="flex:1 1 340px"><h2>City neighbourhoods and homes near the plant</h2><p class="lead">Homes in the city near schools, or along the industrial belt for an easy commute. We search both.</p>
+<div class="legend"><span><i style="background:#F2A73B"></i>City residential areas</span><span><i style="background:#2F6B5E"></i>Industrial belt along NH48</span></div></div>
+<div class="mapcard" style="flex:1 1 540px"><svg viewBox="0 0 640 360" role="img" aria-label="Simplified map of KLS service areas around Chennai" style="width:100%;height:auto;display:block;font-family:'IBM Plex Sans KR',sans-serif">
+<path d="M560 0 C548 60 572 120 556 180 C542 240 566 300 552 360 L640 360 L640 0 Z" fill="#E4EFEB"/>
+<text x="600" y="60" font-size="13" fill="#2F6B5E" text-anchor="middle">Bay of</text><text x="600" y="76" font-size="13" fill="#2F6B5E" text-anchor="middle">Bengal</text>
+<path d="M548 168 C470 172 400 168 330 176 C260 184 190 178 60 186" stroke="#C9D2DC" stroke-width="10" fill="none" stroke-linecap="round"/>
+<text x="110" y="214" font-size="12" fill="#6B7787">NH48 → Bengaluru</text>
+<path d="M300 178 C292 220 270 250 250 272" stroke="#C9D2DC" stroke-width="6" fill="none" stroke-linecap="round"/>
+<ellipse cx="490" cy="150" rx="70" ry="52" fill="rgba(242,167,59,0.14)"/><ellipse cx="225" cy="215" rx="125" ry="88" fill="rgba(47,107,94,0.10)"/>
+<circle cx="468" cy="128" r="8" fill="#F2A73B" stroke="#fff" stroke-width="2"/><text x="468" y="108" font-size="14" font-weight="600" fill="#16202E" text-anchor="middle">Anna Nagar</text><text x="468" y="94" font-size="12" fill="#4B5768" text-anchor="middle">안나 나가르</text>
+<circle cx="512" cy="160" r="8" fill="#F2A73B" stroke="#fff" stroke-width="2"/><text x="512" y="190" font-size="14" font-weight="600" fill="#16202E" text-anchor="middle">Kilpauk</text><text x="512" y="206" font-size="12" fill="#4B5768" text-anchor="middle">킬파욱</text>
+<circle cx="168" cy="180" r="8" fill="#2F6B5E" stroke="#fff" stroke-width="2"/><text x="168" y="160" font-size="14" font-weight="600" fill="#16202E" text-anchor="middle">Sriperumbudur</text><text x="168" y="146" font-size="12" fill="#4B5768" text-anchor="middle">스리페룸부두르</text>
+<circle cx="292" cy="176" r="8" fill="#2F6B5E" stroke="#fff" stroke-width="2"/><text x="300" y="156" font-size="14" font-weight="600" fill="#16202E" text-anchor="middle">Irungattukottai</text><text x="300" y="142" font-size="12" fill="#4B5768" text-anchor="middle">이룽가투코타이</text>
+<circle cx="250" cy="272" r="8" fill="#2F6B5E" stroke="#fff" stroke-width="2"/><text x="250" y="300" font-size="14" font-weight="600" fill="#16202E" text-anchor="middle">Oragadam</text><text x="250" y="316" font-size="12" fill="#4B5768" text-anchor="middle">오라가담</text>
+<text x="490" y="250" font-size="13" fill="#6B7787" text-anchor="middle">Chennai city</text>
+</svg></div>
+</div></section>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="container">
-      <div class="section-label">Who we are</div>
-      <h2 class="section-title">End-to-end Korean business support in India</h2>
-      <p class="section-desc">
-        We offer trusted, personalized support to Korean expatriates and their companies in Chennai. Our integrated approach combines language support, IT security consulting, compliance assistance, and local operational coordination — ensuring smooth operations between Korean headquarters and Indian teams.
-      </p>
-      <div class="about-grid">
-        <div class="about-point">
-          <i class="ti ti-shield-check"></i>
-          <div>
-            <div class="about-point-title">Trusted & experienced</div>
-            <div class="about-point-desc">Built on years of IT security expertise under Mastermind IT Security Solutions, now expanded for expat life.</div>
-          </div>
-        </div>
-        <div class="about-point">
-          <i class="ti ti-language"></i>
-          <div>
-            <div class="about-point-title">Korean-first communication</div>
-            <div class="about-point-desc">We bridge language and culture gaps so nothing gets lost in translation — literally or professionally.</div>
-          </div>
-        </div>
-        <div class="about-point">
-          <i class="ti ti-users"></i>
-          <div>
-            <div class="about-point-title">Single-point partner</div>
-            <div class="about-point-desc">From visa paperwork to CCTV setup, we handle it all — no need to coordinate multiple vendors.</div>
-          </div>
-        </div>
-        <div class="about-point">
-          <i class="ti ti-map-pin"></i>
-          <div>
-            <div class="about-point-title">Chennai-based, India-ready</div>
-            <div class="about-point-desc">Deep local knowledge of Chennai's regulations, housing, and corporate ecosystem.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="section cobalt"><div class="wrap two" style="align-items:center">
+<div style="flex:1 1 340px"><div class="globe"><canvas data-globe role="img" aria-label="Rotating globe showing a connection from Seoul to Chennai"></canvas></div></div>
+<div class="stack" style="flex:1 1 520px;gap:22px"><h2>From Seoul to Chennai, every step of the move</h2><p class="lead">Beyond the home, the same team looks after everything from arrival to departure.</p><ol class="journey"><li><b>Before you arrive</b><span>Home signed, visa documents checked</span></li><li><b>First two weeks</b><span>FRRO registration, SIM, bank, PAN</span></li><li><b>Settling in</b><span>Car and driver, internet, daily help</span></li><li><b>Every year, and on leaving</b><span>Visa extension, exit permit, tax filing</span></li></ol></div>
+</div></section>
 
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="container">
-      <div class="section-label">What we do</div>
-      <h2 class="section-title">Our services</h2>
-      <p class="section-desc">Five focused service categories covering everything a Korean expat or company needs in Chennai.</p>
+<section class="section white" id="company"><div class="wrap two">
+<div class="stack"><h2>Between Korean HQ and the Indian site, we align language and standards</h2><p class="lead">Not just one-off interpretation. We help your India operation work to the standard HQ expects.</p>
+<div class="photo" style="aspect-ratio:16/10"><img src="assets/img/business-800.jpg" alt="Concept visual of a Korea–India business meeting" loading="lazy" width="800" height="533"><span class="tag left">Concept visual</span></div></div>
+<div><div class="rows"><div><span class="ic">주거</span><div><h3><a href="expat-housing-chennai/" style="text-decoration:none">Expat housing, managed</a></h3><p>Homes for several staff, company leases and renewals through one contact.</p></div></div><div><span class="ic">통역</span><div><h3><a href="korean-translation-business-support/" style="text-decoration:none">Interpretation and translation</a></h3><p>Vendor meetings, contracts and internal notices in Korean and English.</p></div></div><div><span class="ic">조율</span><div><h3><a href="korean-translation-business-support/" style="text-decoration:none">HQ to India coordination</a></h3><p>Fewer misunderstandings from cultural gaps, schedules kept on track.</p></div></div><div><span class="ic">인증</span><div><h3><a href="iso-27001-tisax-consulting/" style="text-decoration:none">Security certification</a></h3><p>ISO/IEC 27001, TISAX, PCI DSS v4.0 and SOC 1/2.</p></div></div><div><span class="ic">IT</span><div><h3><a href="home-office-it-support-chennai/" style="text-decoration:none">Office IT and security</a></h3><p>Network, CCTV, data backup and cybersecurity checks.</p></div></div></div>
+<a class="btn btn-outline" style="margin-top:18px" href="https://wa.me/917985040232?text=Hello%20KLS%2C%20we%20are%20a%20Korean%20company%20in%20Chennai%20and%20would%20like%20a%20consultation.">Request a company consultation</a></div>
+</div></section>
 
-      <div class="services-grid">
+<section class="section"><div class="wrap stack-lg"><h2>A team you meet in person</h2><div class="team"><div class="member"><span class="av" aria-hidden="true">RK</span><div><b>Raj Kumar</b><em>CEO and Founder</em><p>Main contact for Korean corporate clients. Owns every engagement end to end.</p></div></div><div class="member"><span class="av" aria-hidden="true">K</span><div><b>Kalaivani</b><em>HR and Immigration Consultant</em><p>FRRO, PAN, translation and coordination with company HR teams.</p></div></div><div class="member"><span class="av" aria-hidden="true">YT</span><div><b>Y Thavanesh</b><em>Operations and System Administrator</em><p>IT and security services, system setup and operations.</p></div></div></div></div></section>
 
-        <!-- Immigration -->
-        <div class="service-card">
-          <div class="service-icon" style="background:var(--blue-light);color:var(--blue-mid);">
-            <i class="ti ti-id"></i>
-          </div>
-          <h3>Immigration & Expat</h3>
-          <p>Visa, documentation, and Indian identity support for Korean nationals living and working in India.</p>
-          <div class="tags">
-            <span class="tag">FRRO registration</span>
-            <span class="tag">Visa extension</span>
-            <span class="tag">RP renewal</span>
-            <span class="tag">Exit permit</span>
-            <span class="tag">PAN & Aadhaar</span>
-            <span class="tag">Passport / Tatkaal</span>
-          </div>
-        </div>
-
-        <!-- Korean Business -->
-        <div class="service-card">
-          <div class="service-icon" style="background:var(--teal-light);color:var(--teal-mid);">
-            <i class="ti ti-language"></i>
-          </div>
-          <h3>Korean Business Support</h3>
-          <p>Bridging Korean HQ and Indian teams through language, cultural consulting, and business coordination.</p>
-          <div class="tags">
-            <span class="tag">Translation</span>
-            <span class="tag">Interpretation</span>
-            <span class="tag">Cultural consulting</span>
-            <span class="tag">Vendor coordination</span>
-            <span class="tag">Virtual assistance</span>
-            <span class="tag">English training</span>
-          </div>
-        </div>
-
-        <!-- Compliance & IT -->
-        <div class="service-card">
-          <div class="service-icon" style="background:var(--purple-light);color:var(--purple-mid);">
-            <i class="ti ti-shield-lock"></i>
-          </div>
-          <h3>Corporate Compliance & IT Security</h3>
-          <p>Expert IT security consulting, cybersecurity audits, and certification support for global standards.</p>
-          <div class="tags">
-            <span class="tag">ISO/IEC 27001</span>
-            <span class="tag">PCI DSS v4.0</span>
-            <span class="tag">SOC 1 & SOC 2</span>
-            <span class="tag">TISAX</span>
-            <span class="tag">Cybersecurity</span>
-            <span class="tag">ITR filing</span>
-          </div>
-        </div>
-
-        <!-- Lifestyle & Property -->
-        <div class="service-card">
-          <div class="service-icon" style="background:var(--amber-light);color:var(--amber-mid);">
-            <i class="ti ti-home"></i>
-          </div>
-          <h3>Lifestyle & Property</h3>
-          <p>Housing, relocation, property management, and weekend retreats for Korean expats and families.</p>
-          <div class="tags">
-            <span class="tag">Apartment search</span>
-            <span class="tag">C-Form & compliance</span>
-            <span class="tag">Property management</span>
-            <span class="tag">Farm stay / retreats</span>
-            <span class="tag">Transportation support</span>
-          </div>
-        </div>
-
-        <!-- Technical Support -->
-        <div class="service-card">
-          <div class="service-icon" style="background:var(--coral-light);color:var(--coral-mid);">
-            <i class="ti ti-device-laptop"></i>
-          </div>
-          <h3>Technical Support</h3>
-          <p>Hands-on IT help for homes and offices — from smart devices to data recovery and CCTV setup.</p>
-          <div class="tags">
-            <span class="tag">Wi-Fi setup</span>
-            <span class="tag">CCTV installation</span>
-            <span class="tag">Smart home</span>
-            <span class="tag">IT troubleshooting</span>
-            <span class="tag">Data backup</span>
-            <span class="tag">Hardware setup</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Compliance Detail -->
-      <div style="margin-top:2.5rem;">
-        <div class="section-label" style="margin-bottom:0.4rem;">Compliance standards we support</div>
-        <div class="compliance-grid">
-          <div class="compliance-card">
-            <div class="cert">ISO/IEC 27001</div>
-            <p>Information Security Management Systems — protecting data from leakage, loss, or misuse.</p>
-          </div>
-          <div class="compliance-card">
-            <div class="cert">PCI DSS v4.0</div>
-            <p>Secure storage, processing, and transmission of credit card and payment data.</p>
-          </div>
-          <div class="compliance-card">
-            <div class="cert">SOC 1 & SOC 2</div>
-            <p>Audit assistance for secure handling of financial data (SOC 1) and customer data (SOC 2).</p>
-          </div>
-          <div class="compliance-card">
-            <div class="cert">TISAX</div>
-            <p>Security assessment for the automotive industry — HQ and supplier compliance.</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- TEAM -->
-  <section id="team">
-    <div class="container">
-      <div class="section-label">Our people</div>
-      <h2 class="section-title">Meet the team</h2>
-      <p class="section-desc">A small, dedicated team with deep expertise in immigration, HR, IT security, and Korean business culture.</p>
-      <div class="team-grid">
-        <div class="team-card">
-          <img src="assets/Raj.png" alt="Raj Kumar" style="width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:top;margin:0 auto 0.9rem;display:block;border:3px solid var(--blue-light);">
-          <h3>Raj Kumar</h3>
-          <div class="team-role">CEO & Founder</div>
-          <div class="team-desc">Strategic lead and primary liaison with Korean corporate clients. Oversees end-to-end service delivery.</div>
-        </div>
-        <div class="team-card">
-          <img src="assets/Kalaivani.png" alt="Kalaivani" style="width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:top;margin:0 auto 0.9rem;display:block;border:3px solid var(--teal-light);">
-          <h3>Kalaivani</h3>
-          <div class="team-role">HR & Immigration Consultant</div>
-          <div class="team-desc">Hands-on support for FRRO, PAN, Aadhaar, translation, and coordination with HR teams.</div>
-        </div>
-        <div class="team-card">
-          <img src="assets/Thavanesh.jpeg" alt="Y Thavanesh" style="width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:top;margin:0 auto 0.9rem;display:block;border:3px solid var(--purple-light);">
-          <h3>Y Thavanesh</h3>
-          <div class="team-role">Operations & System Administrator</div>
-          <div class="team-desc">Hands-on support for all IT and cybersecurity services, system setup, and operations.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="container">
-      <div class="contact-box">
-        <h2>Get in touch</h2>
-        <p>Reach us by phone, WhatsApp, or email — we respond in Korean and English.</p>
-        <div class="contact-items">
-          <div class="contact-item">
-            <i class="ti ti-phone"></i>
-            <div>
-              <span class="contact-item-label">Mobile / WhatsApp</span>
-              <a href="tel:+917985040232" class="contact-item-val">+91 79850 40232</a>
-            </div>
-          </div>
-          <div class="contact-item">
-            <i class="ti ti-mail"></i>
-            <div>
-              <span class="contact-item-label">Email</span>
-              <a href="mailto:kalaivani@koreanlivingsupport.com" class="contact-item-val">kalaivani@koreanlivingsupport.com</a>
-            </div>
-          </div>
-          <div class="contact-item">
-            <i class="ti ti-world"></i>
-            <div>
-              <span class="contact-item-label">Website</span>
-              <a href="https://www.koreanlivingsupport.com" class="contact-item-val">koreanlivingsupport.com</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div>&copy; 2026 Korean Living Support — All rights reserved.</div>
-    <div class="footer-old-name" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px;">
-      <img src="assets/mastermind-logo.png" alt="Mastermind IT Security Solutions" style="height:16px;width:16px;object-fit:contain;border-radius:3px;opacity:0.6;">
-      Formerly known as Mastermind IT Security Solutions. Same team, expanded services.
-    </div>
-  </footer>
-
+<section class="dark" id="vision" style="background:#0A1A33;color:#F4F6F5">
+<div class="vision-hero"><img src="assets/img/vision-office.jpg" alt="Concept visual of a future KLS office building" loading="lazy">
+<div class="wrap"><span class="pill">Concept visual</span><h2>Our vision for KLS – 2030</h2><p class="lead" style="color:#CFDAE6">To be the first call every Korean company and family makes for a home and a life in Chennai.</p></div></div>
+<div class="wrap stack-lg" style="padding-top:24px;padding-bottom:88px">
+<ol class="road"><li><b>Today</b><span>Housing service built on our owner network</span><span>Five service areas, from immigration to IT</span></li><li><b>Next</b><span>A dedicated KLS office with a client lounge</span><span>Bilingual specialists for each service</span></li><li><b>2030</b><span>The first housing partner for Korean families in Chennai</span><span>Support in other Korean industrial hubs in India</span></li></ol>
+<div class="gallery">
+<div class="photo"><img src="assets/img/vision-team-800.jpg" alt="Concept visual of a future KLS team" loading="lazy" width="800" height="533"></div>
+<div class="photo"><img src="assets/img/vision-md-800.jpg" alt="Concept visual of a future KLS director&#x27;s office" loading="lazy" width="800" height="533" style="object-position:center 30%"></div>
+</div>
+</div>
+</section>
+</main>
+<section class="cta">
+<div class="wrap">
+<div class="stack" style="flex:1 1 460px">
+<h2>Tell us what you need, in Korean or English</h2>
+<p>On working days we usually reply the same day.</p>
+</div>
+<div class="cta-btns">
+<a class="btn btn-cobalt" href="https://wa.me/917985040232?text=Hello%20KLS%2C%20I%20would%20like%20to%20ask%20about%20your%20services."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>+91 79850 40232</a>
+<a class="btn btn-outline-dark" href="mailto:kalaivani@koreanlivingsupport.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>kalaivani@koreanlivingsupport.com</a>
+</div>
+</div>
+</section>
+<footer class="site-footer">
+<div class="wrap">
+<div class="foot-grid">
+<div>
+<b>Korean Living Support</b>
+<p>Kaspapuram, Chennai 600126, Tamil Nadu, India</p>
+</div>
+<div><b>Services</b><a href="expat-housing-chennai/">Homes &amp; property</a><a href="frro-visa-services-chennai/">Immigration &amp; stay</a><a href="korean-translation-business-support/">Korean business support</a><a href="iso-27001-tisax-consulting/">Certification &amp; IT security</a><a href="home-office-it-support-chennai/">IT &amp; tech support</a></div>
+<div><b>Contact</b>
+<a href="https://wa.me/917985040232?text=Hello%20KLS%2C%20I%20would%20like%20to%20ask%20about%20your%20services.">WhatsApp +91 79850 40232</a>
+<a href="tel:+917985040232">+91 79850 40232</a>
+<a href="mailto:kalaivani@koreanlivingsupport.com">kalaivani@koreanlivingsupport.com</a>
+</div>
+<div><b>Areas we serve</b><p>Anna Nagar, Kilpauk, Chennai city, Sriperumbudur, Oragadam, Irungattukottai</p></div>
+</div>
+<p class="note">Images marked &quot;Concept visual&quot; illustrate our services and 2030 vision. They are not actual listings or current photos.</p>
+<div class="foot-bottom">
+<span>© 2026 Korean Living Support, Chennai</span>
+<span class="formerly"><img src="assets/img/mastermind-logo.jpg" alt="Mastermind IT Security Solutions logo" width="36" height="36" loading="lazy">Formerly Mastermind IT Security Solutions, the same team with wider services</span>
+</div>
+</div>
+</footer>
+<a class="wa-float" href="https://wa.me/917985040232?text=Hello%20KLS%2C%20I%20would%20like%20to%20ask%20about%20your%20services." aria-label="WhatsApp +91 79850 40232"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg></a>
+<script src="assets/js/site.js" defer></script>
 </body>
 </html>
