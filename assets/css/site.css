@@ -236,6 +236,3 @@ html[lang=ko] body{word-break:keep-all;overflow-wrap:anywhere}
   .nav{gap:10px}
   .lang{padding:0 10px}
 }
-
-/* footer image note hidden */
-.site-footer .note{display:none}
