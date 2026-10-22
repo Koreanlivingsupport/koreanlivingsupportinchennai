@@ -2,7 +2,7 @@
 """All page text for koreanlivingsupport.com, English and Korean."""
 
 PHONE_DISPLAY = "+91 79850 40232"
-EMAIL = "kalaivani@koreanlivingsupport.com"
+EMAIL = "raj@koreanlivingsupport.com"
 SITE = "https://koreanlivingsupport.com/"
 ADDRESS = {"street": "Kaspapuram", "city": "Chennai", "zip": "600126", "region": "Tamil Nadu"}
 
