@@ -32,7 +32,7 @@ UI = {
         "concept": "Concept visual", "home_crumb": "Home",
         "related": "Other services", "faq": "Frequently asked questions",
         "address": "Kaspapuram, Chennai 600126, Tamil Nadu, India",
-        "concept_note": "Images marked \"Concept visual\" illustrate our services and 2030 vision. They are not actual listings or current photos.",
+        "concept_note": "Images marked \"Concept visual\" illustrate our services and Target vision. They are not actual listings or current photos.",
     },
     "ko": {
         "lang_name": "한국어", "other_lang_label": "English", "other_lang_aria": "View in English",
@@ -49,7 +49,7 @@ UI = {
         "concept": "콘셉트 이미지", "home_crumb": "홈",
         "related": "다른 서비스", "faq": "자주 묻는 질문",
         "address": "Kaspapuram, Chennai 600126, Tamil Nadu, India",
-        "concept_note": "\"콘셉트 이미지\"로 표시된 사진은 서비스와 2030 비전을 표현한 것이며, 실제 매물이나 현재 사진이 아닙니다.",
+        "concept_note": "\"콘셉트 이미지\"로 표시된 사진은 서비스와 Target 비전을 표현한 것이며, 실제 매물이나 현재 사진이 아닙니다.",
     },
 }
 
@@ -137,11 +137,11 @@ HOME = {
         "team": [("RK", "Raj Kumar", "CEO and Founder", "Main contact for Korean corporate clients. Owns every engagement end to end."),
                  ("K", "Kalaivani", "HR and Immigration Consultant", "FRRO, PAN, translation and coordination with company HR teams."),
                  ("YT", "Y Thavanesh", "Operations and System Administrator", "IT and security services, system setup and operations.")],
-        "vis_title": "Our vision for KLS – 2030",
+        "vis_title": "Our vision for KLS",
         "vis_lead": "To be the first call every Korean company and family makes for a home and a life in Chennai.",
         "road": [("Today", ["Housing service built on our owner network", "Five service areas, from immigration to IT"]),
                  ("Next", ["A dedicated KLS office with a client lounge", "Bilingual specialists for each service"]),
-                 ("2030", ["The first housing partner for Korean families in Chennai", "Support in other Korean industrial hubs in India"])],
+                 ("Target", ["The first housing partner for Korean families in Chennai", "Support in other Korean industrial hubs in India"])],
         "vis_alts": ["Concept visual of a future KLS office building", "Concept visual of a future KLS team", "Concept visual of a future KLS director's office"],
     },
     "ko": {
@@ -209,11 +209,11 @@ HOME = {
         "team": [("RK", "Raj Kumar", "대표", "한국 기업 고객의 주 담당자. 모든 업무를 처음부터 끝까지 책임집니다."),
                  ("K", "Kalaivani", "HR·출입국 컨설턴트", "FRRO, PAN, 번역, 기업 HR 팀과의 업무 조율."),
                  ("YT", "Y Thavanesh", "운영·시스템 관리자", "IT·보안 서비스, 시스템 구축과 운영.")],
-        "vis_title": "KLS 2030 비전",
+        "vis_title": "KLS 비전",
         "vis_lead": "첸나이에 오는 모든 한국 기업과 가족이 집과 생활을 위해 가장 먼저 연락하는 곳.",
         "road": [("지금", ["집주인 네트워크 기반 주거 서비스", "출입국·기업·보안·IT 5개 분야"]),
                  ("다음 단계", ["고객 라운지를 갖춘 KLS 전용 사무실", "분야별 이중언어 전문가 채용"]),
-                 ("2030", ["첸나이 한국 가족의 첫 번째 주거 파트너", "인도 내 다른 한국 산업 거점으로 확장"])],
+                 ("Target", ["첸나이 한국 가족의 첫 번째 주거 파트너", "인도 내 다른 한국 산업 거점으로 확장"])],
         "vis_alts": ["미래 KLS 사옥 콘셉트 이미지", "미래 KLS 팀 콘셉트 이미지", "미래 KLS 대표실 콘셉트 이미지"],
     },
 }
