@@ -236,3 +236,10 @@ html[lang=ko] body{word-break:keep-all;overflow-wrap:anywhere}
   .nav{gap:10px}
   .lang{padding:0 10px}
 }
+
+/* footer image note hidden */
+.site-footer .note{display:none}
+
+/* WhatsApp green for the contact-section phone button */
+.cta a[href^="https://wa.me"]{background:#25D366;color:#fff;border-color:#25D366}
+.cta a[href^="https://wa.me"]:hover{background:#1EBE5A}
